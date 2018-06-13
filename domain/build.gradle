@@ -1,0 +1,18 @@
+apply plugin: 'java-library'
+
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation deps.kotlin.stdlib
+    implementation deps.rx_android
+    implementation deps.rxjava2
+
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+
+    testImplementation deps.mockito.core
+    testImplementation deps.junit
+    testImplementation deps.mock_web_server
+
+}
