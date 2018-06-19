@@ -43,14 +43,6 @@ android {
         production {}
     }
 
-    configurations {
-        developDebugCompile
-        developReleaseCompile
-
-        productionDebugCompile
-        productionReleaseCompile
-    }
-
     dataBinding {
         enabled = true
     }
