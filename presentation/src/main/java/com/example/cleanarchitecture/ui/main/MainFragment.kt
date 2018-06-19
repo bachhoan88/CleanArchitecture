@@ -1,7 +1,10 @@
 package com.example.cleanarchitecture.ui.main
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
@@ -25,4 +28,6 @@ class MainFragment : BaseFragment<MainFragmentBinding, MainViewModel>(), MainNav
         super.onActivityCreated(savedInstanceState)
         viewModel.navigator = this
     }
+
+
 }
