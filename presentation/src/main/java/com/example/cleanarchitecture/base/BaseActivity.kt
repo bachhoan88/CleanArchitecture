@@ -1,8 +1,7 @@
 package com.example.cleanarchitecture.base
 
-import android.support.v7.app.AppCompatActivity
-import dagger.android.support.HasSupportFragmentInjector
+import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
+abstract class BaseActivity : DaggerAppCompatActivity() {
 
 }

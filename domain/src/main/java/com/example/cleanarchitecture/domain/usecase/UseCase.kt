@@ -5,4 +5,6 @@ package com.example.cleanarchitecture.domain.usecase
  * Please code in here
  * UseCase<Type>
  */
-abstract class UseCase
+abstract class UseCase<in Params, out T> where T : Any {
+    abstract fun createObservable(params: Params? = null): T
+}

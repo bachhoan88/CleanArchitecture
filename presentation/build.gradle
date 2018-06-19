@@ -23,6 +23,32 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        staging {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            matchingFallbacks = ['debug', 'qa', 'release']
+        }
+    }
+
+    productFlavors {
+        develop {}
+
+        production {}
+    }
+
+    configurations {
+        developDebugCompile
+        developReleaseCompile
+
+        productionDebugCompile
+        productionReleaseCompile
     }
 
     dataBinding {
@@ -33,6 +59,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    flavorDimensions "tier"
 }
 
 dependencies {

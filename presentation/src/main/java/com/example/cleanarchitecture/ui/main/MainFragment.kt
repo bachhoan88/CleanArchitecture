@@ -1,13 +1,11 @@
 package com.example.cleanarchitecture.ui.main
 
-import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
 import com.example.cleanarchitecture.databinding.MainFragmentBinding
-import javax.inject.Inject
 
 class MainFragment : BaseFragment<MainFragmentBinding, MainViewModel>(), MainNavigator {
     companion object {
@@ -22,9 +20,6 @@ class MainFragment : BaseFragment<MainFragmentBinding, MainViewModel>(), MainNav
 
     override val viewModel: MainViewModel
         get() = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

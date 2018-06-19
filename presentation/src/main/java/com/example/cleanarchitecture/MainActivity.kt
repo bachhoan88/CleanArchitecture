@@ -12,9 +12,6 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
-    var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>? = null
-        @Inject set
-
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
 
@@ -27,7 +24,5 @@ class MainActivity : BaseActivity() {
                     .commitNow()
         }
     }
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment>? = fragmentDispatchingAndroidInjector
 
 }

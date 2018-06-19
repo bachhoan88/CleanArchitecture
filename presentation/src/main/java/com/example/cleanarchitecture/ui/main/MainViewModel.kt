@@ -2,7 +2,7 @@ package com.example.cleanarchitecture.ui.main
 
 import android.arch.lifecycle.MutableLiveData
 import com.example.cleanarchitecture.base.BaseViewModel
-import com.example.cleanarchitecture.domain.usecase.UserUseCase
+import com.example.cleanarchitecture.domain.usecase.user.FindUserUseCase
 import com.example.cleanarchitecture.model.UserItem
 import com.example.cleanarchitecture.model.UserItemMapper
 import com.example.cleanarchitecture.rx.SchedulerProvider
@@ -10,7 +10,7 @@ import java.util.*
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-        private val mUseCase: UserUseCase,
+        private val mUserUseCase: FindUserUseCase,
         private val mSchedulerProvider: SchedulerProvider,
         private val mMapper: UserItemMapper
 ) : BaseViewModel<MainNavigator>() {
@@ -29,7 +29,7 @@ class MainViewModel @Inject constructor(
 
         userId.value?.let {
             if (it.isNotBlank()) {
-                compositeDisposable!!.add(mUseCase.getUser(it, true)
+                compositeDisposable!!.add(mUserUseCase.createObservable(FindUserUseCase.Params(it, true))
                         .subscribeOn(mSchedulerProvider.io())
                         .observeOn(mSchedulerProvider.ui())
                         .map { mMapper.mapToPresentation(it) }
@@ -42,5 +42,4 @@ class MainViewModel @Inject constructor(
     fun actionSearch() {
         searchUser(userId.value!!)
     }
-
 }
