@@ -50,12 +50,13 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
         return activity!!.supportFragmentManager.findFragmentByTag(TAG)
     }
 
-    fun replaceFragment(fragment: Fragment, TAG: String?, transit: Int?) {
+    fun replaceFragment(fragment: Fragment, TAG: String?, addToBackStack: Boolean?, transit: Int?) {
         val transaction = activity!!.supportFragmentManager!!.beginTransaction()
                 .replace(R.id.container, fragment, TAG)
 
+        addToBackStack?.let { if (it) transaction.addToBackStack(TAG) }
         transit?.let { if (it != -1) transaction.setTransition(it) }
-        transaction.commitNow()
+        transaction.commit()
     }
 
     override fun onAttach(context: Context?) {
@@ -65,7 +66,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(false)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

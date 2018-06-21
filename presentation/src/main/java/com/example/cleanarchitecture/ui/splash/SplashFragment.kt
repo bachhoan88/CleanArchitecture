@@ -1,30 +1,29 @@
-package com.example.cleanarchitecture.ui.main
+package com.example.cleanarchitecture.ui.splash
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
-import com.example.cleanarchitecture.databinding.FragmentMainBinding
+import com.example.cleanarchitecture.databinding.FragmentSplashBinding
 
-class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNavigator {
+class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(), SplashNavigator {
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = SplashFragment()
     }
 
     override val bindingVariable: Int
         get() = BR.viewModel
 
     override val layoutId: Int
-        get() = R.layout.fragment_main
+        get() = R.layout.fragment_splash
 
-    override val viewModel: MainViewModel
-        get() = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+    override val viewModel: SplashViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(SplashViewModel::class.java)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.navigator = this
     }
-
 
 }
