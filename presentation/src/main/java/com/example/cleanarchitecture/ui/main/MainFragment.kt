@@ -26,5 +26,4 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
         viewModel.navigator = this
     }
 
-
 }

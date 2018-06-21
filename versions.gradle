@@ -28,6 +28,7 @@ versions.kotlin = "1.2.41"
 versions.paging = "1.0.0"
 versions.work = "1.0.0-alpha02"
 versions.navigation = "1.0.0-alpha01"
+versions.easy_permission = "1.2.0"
 def deps = [:]
 
 def support = [:]
@@ -139,6 +140,10 @@ navigation.fragment_ktx = "android.arch.navigation:navigation-fragment-ktx:$vers
 navigation.safe_args_plugin = "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
 navigation.testing_ktx = "android.arch.navigation:navigation-testing-ktx:$versions.navigation"
 deps.navigation = navigation
+
+def permissions = [:]
+permissions.easy_permission = "pub.devrel:easypermissions:$versions.easy_permission"
+deps.permissions = permissions
 
 ext.deps = deps
 

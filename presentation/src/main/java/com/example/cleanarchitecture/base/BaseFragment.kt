@@ -1,12 +1,16 @@
 package com.example.cleanarchitecture.base
 
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
+import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.annotation.Size
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +19,12 @@ import android.widget.EditText
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.util.autoCleared
 import dagger.android.support.AndroidSupportInjection
+import pub.devrel.easypermissions.EasyPermissions
 import javax.inject.Inject
 
-abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragment() {
+const val PERMISSION_REQUEST_CODE = Activity.RESULT_FIRST_USER + 1
+
+abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragment(), EasyPermissions.PermissionCallbacks {
 
     abstract val bindingVariable: Int
 
@@ -81,6 +88,42 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
         viewDataBinding.executePendingBindings()
         viewDataBinding.setLifecycleOwner(this)
     }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+    }
+
+    fun hasPermission(@Size(min = 1) vararg permissions: String): Boolean {
+        for (perm in permissions) {
+            if (ContextCompat.checkSelfPermission(activity!!, perm) != PackageManager.PERMISSION_GRANTED) {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    fun requestPermission(rationale: String, @Size(min = 1) vararg permissions: String) {
+        for (perm in permissions) {
+            EasyPermissions.requestPermissions(this, rationale, PERMISSION_REQUEST_CODE, perm)
+        }
+    }
+
+    /**
+     * Y can use android annotation for register permission accepted
+     * @AfterPermissionGranted(PERMISSION_REQUEST_CODE)
+     * fun permissionAccepted() {
+     * }
+     */
 
     private fun performDependencyInjection() {
         AndroidSupportInjection.inject(this)

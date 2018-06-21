@@ -76,6 +76,8 @@ dependencies {
     implementation deps.dagger.android
     implementation deps.dagger.android_support
 
+    implementation deps.permissions.easy_permission
+
     implementation deps.constraint_layout
     implementation deps.kotlin.stdlib
     implementation deps.timber
