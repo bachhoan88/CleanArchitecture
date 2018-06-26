@@ -9,7 +9,9 @@ import com.example.cleanarchitecture.databinding.FragmentSplashBinding
 
 class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(), SplashNavigator {
     companion object {
+        const val TAG = "SplashFragment"
         fun newInstance() = SplashFragment()
+
     }
 
     override val bindingVariable: Int

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.os.IBinder
 import android.support.annotation.LayoutRes
 import android.support.annotation.Size
 import android.support.v4.app.Fragment
@@ -41,9 +42,13 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
     fun hideKeyboard() {
         val view = activity!!.currentFocus
         if (view != null) {
-            val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-            imm?.hideSoftInputFromWindow(view.getWindowToken(), 0)
+            dismissKeyboard(view.windowToken)
         }
+    }
+
+    fun dismissKeyboard(windowToken: IBinder) {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(windowToken, 0)
     }
 
     fun showKeyboard(editText: EditText?) {
@@ -57,9 +62,9 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
         return activity!!.supportFragmentManager.findFragmentByTag(TAG)
     }
 
-    fun replaceFragment(fragment: Fragment, TAG: String?, addToBackStack: Boolean?, transit: Int?) {
+    fun replaceFragment(fragment: Fragment, TAG: String?, addToBackStack: Boolean? = false, transit: Int? = -1) {
         val transaction = activity!!.supportFragmentManager!!.beginTransaction()
-                .replace(R.id.container, fragment, TAG)
+                .replace(R.id.container, fragment)
 
         addToBackStack?.let { if (it) transaction.addToBackStack(TAG) }
         transit?.let { if (it != -1) transaction.setTransition(it) }

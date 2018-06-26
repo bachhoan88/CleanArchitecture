@@ -7,6 +7,9 @@ buildscript {
         classpath deps.kotlin.allopen
         classpath deps.navigation.safe_args_plugin
     }
+    repositories {
+        google()
+    }
 }
 
 allprojects {
