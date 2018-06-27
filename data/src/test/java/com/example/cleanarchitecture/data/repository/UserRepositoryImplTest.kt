@@ -1,14 +1,12 @@
 package com.example.cleanarchitecture.data.repository
 
 import com.example.cleanarchitecture.data.UserRepositoryImpl
-import com.example.cleanarchitecture.data.createUserEntity
 import com.example.cleanarchitecture.data.local.db.AppDatabase
 import com.example.cleanarchitecture.data.model.UserEntityMapper
 import com.example.cleanarchitecture.data.remote.api.UserApi
 import io.reactivex.Completable
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
@@ -29,6 +27,7 @@ class UserRepositoryImplTest {
         val username = "hoanbn88"
         val pass = "abc123"
         `when`(userApiMock.signin(username, pass)).thenReturn(Completable.error(Throwable("Invalid password")))
+
     }
 
 

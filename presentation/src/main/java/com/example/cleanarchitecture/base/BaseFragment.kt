@@ -12,12 +12,14 @@ import android.support.annotation.LayoutRes
 import android.support.annotation.Size
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.example.cleanarchitecture.R
+import com.example.cleanarchitecture.util.CommonUtils
 import com.example.cleanarchitecture.util.autoCleared
 import dagger.android.support.AndroidSupportInjection
 import pub.devrel.easypermissions.EasyPermissions
@@ -36,8 +38,21 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
 
     var viewDataBinding by autoCleared<T>()
 
+    private var mAlertDialog: AlertDialog? = null
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    fun showLoading() {
+        hideLoading()
+        mAlertDialog = CommonUtils.showLoadingDialog(activity!!)
+    }
+
+    fun hideLoading() {
+        if (mAlertDialog != null && mAlertDialog!!.isShowing) {
+            mAlertDialog!!.cancel()
+        }
+    }
 
     fun hideKeyboard() {
         val view = activity!!.currentFocus
