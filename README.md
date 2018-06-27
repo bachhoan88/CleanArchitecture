@@ -12,7 +12,7 @@ Introduction
 
 ### Structure
 The app is composed of 3 modules 
-![images/clean_architecture_reloaded_layers.png]
+![Structure](https://github.com/bachhoan88/CleanArchitecture/images/clean_architecture_reloaded_layers.png)
 
 #### Domain Layer
 
