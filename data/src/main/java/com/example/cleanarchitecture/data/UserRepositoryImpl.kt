@@ -23,7 +23,9 @@ class UserRepositoryImpl @Inject constructor(
 
     override fun getUser(id: String, fromServer: Boolean): Single<User> = when (fromServer) {
         false -> mAppDatabase.userDao().findById(id).map { mMapper.mapToDomain(it) }
-        true -> mUserApi.getUser(id).map { mMapper.mapToDomain(it) }.onErrorResumeNext(getUser(id, false))
+        true -> mUserApi.getUser(id)
+                .map { mMapper.mapToDomain(it) }
+                .onErrorResumeNext(getUser(id, false))
     }
 
     override fun saveUser(user: User) {

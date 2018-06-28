@@ -21,11 +21,6 @@ class MainViewModel @Inject constructor(
 
     fun searchUser(originalInput: String) {
         val input = originalInput.toLowerCase(Locale.getDefault()).trim()
-        if (input == userId.value) {
-            return
-        } else {
-            userId.value = input
-        }
 
         userId.value?.let {
             if (it.isNotBlank()) {
