@@ -38,11 +38,12 @@ dependencies {
     implementation deps.lifecycle.java8
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
+    implementation deps.retrofit.adapter
 
     implementation deps.dagger.runtime
     implementation deps.dagger.android
     implementation deps.dagger.android_support
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
+
 
     implementation deps.timber
     kapt deps.dagger.android_support_compiler
