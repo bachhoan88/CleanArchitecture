@@ -13,7 +13,7 @@ class MainViewModel @Inject constructor(
         private val mUserUseCase: FindUserUseCase,
         private val mSchedulerProvider: SchedulerProvider,
         private val mMapper: UserItemMapper
-) : BaseViewModel<MainNavigator>() {
+) : BaseViewModel<MainNavigator>(mUserUseCase) {
 
     val user = MutableLiveData<UserItem>()
     val userId = MutableLiveData<String>()
