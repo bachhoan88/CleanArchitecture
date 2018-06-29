@@ -6,7 +6,6 @@ import com.example.cleanarchitecture.domain.usecase.user.FindUserUseCase
 import com.example.cleanarchitecture.model.UserItem
 import com.example.cleanarchitecture.model.UserItemMapper
 import com.example.cleanarchitecture.rx.SchedulerProvider
-import java.util.*
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -19,9 +18,7 @@ class MainViewModel @Inject constructor(
     val userId = MutableLiveData<String>()
 
 
-    fun searchUser(originalInput: String) {
-        val input = originalInput.toLowerCase(Locale.getDefault()).trim()
-
+    fun searchUser() {
         userId.value?.let {
             if (it.isNotBlank()) {
                 compositeDisposable!!.add(mUserUseCase.createObservable(FindUserUseCase.Params(it, true))
@@ -34,7 +31,4 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun actionSearch() {
-        searchUser(userId.value!!)
-    }
 }

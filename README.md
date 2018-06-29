@@ -11,8 +11,11 @@ Introduction
 -------------
 
 ### Structure
-The app is composed of 3 modules 
-![Structure](images/clean_architecture_reloaded_layers.png)
+![Structure](images/clean_architecture_reloaded_layers.png "The app is composed of 3 modules ")
+
+
+### Template supporter [Clean Architect Components template][template]
+Support generate files such as: Fragment, Navigator, ViewModel, layout, Local Unit Test
 
 #### Domain Layer
 
@@ -74,6 +77,7 @@ The project uses [MockWebServer][mockwebserver] project to test REST api interac
 [glide]: https://github.com/bumptech/glide
 [timber]: https://github.com/JakeWharton/timber
 [mockito]: http://site.mockito.org
+[template]: https://github.com/bachhoan88/Clean-Architecture-Template
 
 License
 --------
