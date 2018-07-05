@@ -27,7 +27,8 @@ import javax.inject.Inject
 
 const val PERMISSION_REQUEST_CODE = Activity.RESULT_FIRST_USER + 1
 
-abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragment(), EasyPermissions.PermissionCallbacks {
+abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragment(),
+        EasyPermissions.PermissionCallbacks, BaseNavigator {
 
     abstract val bindingVariable: Int
 
@@ -43,12 +44,12 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    fun showLoading() {
+    override fun showLoading() {
         hideLoading()
         mAlertDialog = CommonUtils.showLoadingDialog(activity!!)
     }
 
-    fun hideLoading() {
+    override fun hideLoading() {
         if (mAlertDialog != null && mAlertDialog!!.isShowing) {
             mAlertDialog!!.cancel()
         }
@@ -104,9 +105,11 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewDataBinding.setVariable(bindingVariable, viewModel)
-        viewDataBinding.executePendingBindings()
-        viewDataBinding.setLifecycleOwner(this)
+        viewDataBinding.apply {
+            setVariable(bindingVariable, viewModel)
+            executePendingBindings()
+            setLifecycleOwner(this@BaseFragment)
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,

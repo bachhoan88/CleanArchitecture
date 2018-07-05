@@ -9,14 +9,10 @@ abstract class BaseViewModel<N> constructor(
 ) : ViewModel() {
 
     var navigator: N? = null
-    var compositeDisposable: CompositeDisposable? = null
-
-    init {
-        compositeDisposable = CompositeDisposable()
-    }
+    var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCleared() {
-        compositeDisposable!!.dispose()
+        compositeDisposable.dispose()
         useCases.let { if (it.isNotEmpty()) it.forEach { it!!.onCleared() } }
         super.onCleared()
     }
