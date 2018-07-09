@@ -3,10 +3,12 @@ package com.example.cleanarchitecture.data.di
 import android.arch.persistence.room.Room
 import android.content.Context
 import com.example.cleanarchitecture.data.Constants
+import com.example.cleanarchitecture.data.ItemRepositoryImpl
 import com.example.cleanarchitecture.data.UserRepositoryImpl
 import com.example.cleanarchitecture.data.local.db.AppDatabase
 import com.example.cleanarchitecture.data.local.pref.AppPrefs
 import com.example.cleanarchitecture.data.local.pref.PrefHelper
+import com.example.cleanarchitecture.domain.repository.ItemRepository
 import com.example.cleanarchitecture.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -42,6 +44,12 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun providerUserRepository(repository: UserRepositoryImpl): UserRepository {
+        return repository
+    }
+
+    @Provides
+    @Singleton
+    fun providerItemRepository(repository: ItemRepositoryImpl): ItemRepository {
         return repository
     }
 }

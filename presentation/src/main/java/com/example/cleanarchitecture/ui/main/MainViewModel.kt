@@ -1,39 +1,35 @@
 package com.example.cleanarchitecture.ui.main
 
 import android.arch.lifecycle.MutableLiveData
-import android.os.Handler
-import android.view.View
 import com.example.cleanarchitecture.base.BaseViewModel
-import com.example.cleanarchitecture.domain.usecase.user.FindUserUseCase
-import com.example.cleanarchitecture.model.UserItem
-import com.example.cleanarchitecture.model.UserItemMapper
+import com.example.cleanarchitecture.domain.usecase.item.SearchItemUseCase
+import com.example.cleanarchitecture.model.RepoItem
+import com.example.cleanarchitecture.model.RepoItemMapper
 import com.example.cleanarchitecture.rx.SchedulerProvider
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-        private val mUserUseCase: FindUserUseCase,
+        private val mSearchItemUseCase: SearchItemUseCase,
         private val mSchedulerProvider: SchedulerProvider,
-        private val mMapper: UserItemMapper
-) : BaseViewModel<MainNavigator>(mUserUseCase) {
+        private val mRepoItemMapper: RepoItemMapper
+) : BaseViewModel<MainNavigator>(mSearchItemUseCase) {
 
-    val user = MutableLiveData<UserItem>()
-    val userId = MutableLiveData<String>()
+    val data = MutableLiveData<List<RepoItem>>()
+    val query = MutableLiveData<String>()
 
-    fun load(view: View) {
-        navigator!!.showLoading()
-        Handler().postDelayed({
-            navigator!!.hideLoading()
-        }, 1500)
-    }
+    fun searchRepo() {
+        navigator.let { if (it != null) it.showLoading() }
 
-    fun searchUser() {
-        userId.value?.let {
+        query.value?.let {
             if (it.isNotBlank()) {
-                compositeDisposable.add(mUserUseCase.createObservable(FindUserUseCase.Params(it, true))
+                compositeDisposable.add(mSearchItemUseCase.createObservable(SearchItemUseCase.Params(query = it, pageNumber = 1))
                         .subscribeOn(mSchedulerProvider.io())
                         .observeOn(mSchedulerProvider.ui())
-                        .map { mMapper.mapToPresentation(it) }
-                        .subscribe({ user.postValue(it) }, {})
+                        .map { it.map { mRepoItemMapper.mapToPresentation(it) } }
+                        .subscribe({
+                            data.postValue(it)
+                            navigator.let { if (it != null) it.hideLoading() }
+                        }, {})
                 )
             }
         }

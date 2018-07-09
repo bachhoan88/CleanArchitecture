@@ -1,5 +1,6 @@
 package com.example.cleanarchitecture.data.di
 
+import com.example.cleanarchitecture.data.remote.api.ItemApi
 import com.example.cleanarchitecture.data.remote.api.UserApi
 import com.example.cleanarchitecture.data.remote.factory.RxErrorHandlingCallAdapterFactory
 import dagger.Module
@@ -14,7 +15,7 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
-    private val BASE_URL = "http://jsonplaceholder.typicode.com/"
+    private val BASE_URL = "https://api.github.com/"
     private val CONNECT_TIMEOUT = 10L
     private val READ_TIMEOUT = 10L
     private val WRITE_TIMEOUT = 10L
@@ -42,4 +43,7 @@ class NetworkModule {
     @Singleton
     fun provideUsersApi(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
 
+    @Provides
+    @Singleton
+    fun provideItemsApi(retrofit: Retrofit): ItemApi = retrofit.create(ItemApi::class.java)
 }
