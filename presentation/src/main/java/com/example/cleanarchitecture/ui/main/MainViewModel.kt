@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
                         .observeOn(mSchedulerProvider.ui())
                         .map { it.map { mRepoItemMapper.mapToPresentation(it) } }
                         .subscribe({
-                            data.postValue(it)
+                            data.value = it
                             navigator.let { if (it != null) it.hideLoading() }
                         }, {})
                 )

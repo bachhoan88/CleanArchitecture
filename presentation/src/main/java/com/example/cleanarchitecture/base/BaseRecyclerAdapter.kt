@@ -17,7 +17,7 @@ abstract class BaseRecyclerAdapter<T, V : ViewDataBinding>(
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<V> {
-        return BaseViewHolder(createBinding(parent))
+        return BaseViewHolder(createBinding(parent = parent, viewType = viewType))
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<V>, position: Int) {
@@ -25,7 +25,7 @@ abstract class BaseRecyclerAdapter<T, V : ViewDataBinding>(
         holder.binding.executePendingBindings()
     }
 
-    protected abstract fun createBinding(parent: ViewGroup): V
+    protected abstract fun createBinding(parent: ViewGroup, viewType: Int? = 0): V
 
     protected abstract fun bind(binding: V, item: T)
 }

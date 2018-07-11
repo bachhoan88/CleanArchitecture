@@ -26,7 +26,7 @@ class MainAdapter(
 
     }) {
 
-    override fun createBinding(parent: ViewGroup): CustomRepoItemBinding {
+    override fun createBinding(parent: ViewGroup, viewType: Int?): CustomRepoItemBinding {
         val binding = DataBindingUtil.inflate<CustomRepoItemBinding>(
                 LayoutInflater.from(parent.context), R.layout.custom_repo_item, parent, false, dataBindingComponent
         )
