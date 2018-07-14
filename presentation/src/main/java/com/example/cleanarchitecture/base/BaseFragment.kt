@@ -19,8 +19,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.example.cleanarchitecture.R
-import com.example.cleanarchitecture.util.CommonUtils
 import com.example.cleanarchitecture.util.autoCleared
+import com.example.cleanarchitecture.util.showLoadingDialog
 import dagger.android.support.AndroidSupportInjection
 import pub.devrel.easypermissions.EasyPermissions
 import javax.inject.Inject
@@ -46,7 +46,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
 
     override fun showLoading() {
         hideLoading()
-        mAlertDialog = CommonUtils.showLoadingDialog(activity!!)
+        mAlertDialog = showLoadingDialog(activity!!)
     }
 
     override fun hideLoading() {
