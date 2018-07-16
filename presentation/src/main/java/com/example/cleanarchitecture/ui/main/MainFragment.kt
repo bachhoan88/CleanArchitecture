@@ -22,6 +22,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
     override val layoutId: Int
         get() = R.layout.fragment_main
 
+    override val themeId: Int
+        get() = R.style.AppTheme_NoActionBar
+
     override val viewModel: MainViewModel
         get() = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 

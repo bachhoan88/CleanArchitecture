@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.support.annotation.LayoutRes
 import android.support.annotation.Size
+import android.support.annotation.StyleRes
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
@@ -36,6 +37,9 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
 
     @get:LayoutRes
     abstract val layoutId: Int
+
+    @get:StyleRes
+    abstract val themeId: Int
 
     var viewDataBinding by autoCleared<T>()
 
@@ -93,6 +97,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        activity?.setTheme(themeId)
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }

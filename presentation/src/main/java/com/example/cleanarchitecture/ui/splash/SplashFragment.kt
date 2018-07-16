@@ -14,6 +14,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(), S
 
     }
 
+    override val themeId: Int
+        get() = R.style.AppTheme_NoActionBar
+
     override val bindingVariable: Int
         get() = BR.viewModel
 
