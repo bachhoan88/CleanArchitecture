@@ -8,9 +8,14 @@ import com.example.cleanarchitecture.base.BaseFragment
 import com.example.cleanarchitecture.databinding.FragmentLoginBinding
 
 class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(), LoginNavigator {
+    
+
     companion object {
         fun newInstance() = LoginFragment()
     }
+
+    override val themeId: Int
+        get() = R.style.AppTheme_NoActionBar
 
     override val bindingVariable: Int
         get() = BR.viewModel
