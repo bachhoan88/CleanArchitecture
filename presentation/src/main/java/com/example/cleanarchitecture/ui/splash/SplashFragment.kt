@@ -11,11 +11,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(), S
     companion object {
         const val TAG = "SplashFragment"
         fun newInstance() = SplashFragment()
-
     }
-
-    override val themeId: Int
-        get() = R.style.AppTheme_NoActionBar
 
     override val bindingVariable: Int
         get() = BR.viewModel
