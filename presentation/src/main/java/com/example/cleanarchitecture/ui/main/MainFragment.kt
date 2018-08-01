@@ -32,7 +32,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
         super.onActivityCreated(savedInstanceState)
         viewModel.navigator = this
 
-        val adapter = MainAdapter(bindingComponent, { repoItem -> })
+        val adapter = MainAdapter(bindingComponent, {}, {})
 
         viewDataBinding.listRepo.layoutManager = LinearLayoutManager(activity)
         this.mainAdapter = adapter
