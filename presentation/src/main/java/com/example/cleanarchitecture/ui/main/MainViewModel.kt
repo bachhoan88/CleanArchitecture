@@ -12,13 +12,12 @@ class MainViewModel @Inject constructor(
         private val mSearchItemUseCase: SearchItemUseCase,
         private val mSchedulerProvider: SchedulerProvider,
         private val mRepoItemMapper: RepoItemMapper
-) : BaseViewModel<MainNavigator>(mSearchItemUseCase) {
+) : BaseViewModel(mSearchItemUseCase) {
 
     val data = MutableLiveData<List<RepoItem>>()
     val query = MutableLiveData<String>()
 
     fun searchRepo() {
-        navigator.let { if (it != null) it.showLoading() }
 
         query.value?.let {
             if (it.isNotBlank()) {
@@ -28,7 +27,6 @@ class MainViewModel @Inject constructor(
                         .map { it.map { mRepoItemMapper.mapToPresentation(it) } }
                         .subscribe({
                             data.value = it
-                            navigator.let { if (it != null) it.hideLoading() }
                         }, {})
                 )
             }

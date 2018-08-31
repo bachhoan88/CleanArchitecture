@@ -7,7 +7,7 @@ import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
 import com.example.cleanarchitecture.databinding.FragmentSplashBinding
 
-class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(), SplashNavigator {
+class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
     companion object {
         const val TAG = "SplashFragment"
         fun newInstance() = SplashFragment()
@@ -24,7 +24,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(), S
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.navigator = this
     }
 
 }

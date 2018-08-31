@@ -7,7 +7,7 @@ import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
 import com.example.cleanarchitecture.databinding.FragmentLoginBinding
 
-class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(), LoginNavigator {
+class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
 
 
     companion object {
@@ -25,7 +25,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(), Logi
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.navigator = this
     }
 
 

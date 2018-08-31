@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
         private val mSchedulerProvider: SchedulerProvider
-) : BaseViewModel<LoginNavigator>() {
+) : BaseViewModel() {
 
 }

@@ -4,11 +4,10 @@ import android.arch.lifecycle.ViewModel
 import com.example.cleanarchitecture.domain.usecase.UseCase
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseViewModel<N> constructor(
+abstract class BaseViewModel constructor(
         vararg val useCases: UseCase<*, *>?
 ) : ViewModel() {
 
-    var navigator: N? = null
     var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCleared() {

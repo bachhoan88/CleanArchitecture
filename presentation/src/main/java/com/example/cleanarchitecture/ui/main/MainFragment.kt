@@ -11,7 +11,7 @@ import com.example.cleanarchitecture.binding.FragmentDataBindingComponent
 import com.example.cleanarchitecture.databinding.FragmentMainBinding
 import com.example.cleanarchitecture.util.autoCleared
 
-class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNavigator {
+class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -30,7 +30,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.navigator = this
 
         val adapter = MainAdapter(bindingComponent, {}, {})
 

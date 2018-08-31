@@ -21,6 +21,13 @@ android {
         }
     }
 
+    productFlavors {
+        develop {}
+
+        production {}
+    }
+
+    flavorDimensions "tier"
 }
 
 dependencies {

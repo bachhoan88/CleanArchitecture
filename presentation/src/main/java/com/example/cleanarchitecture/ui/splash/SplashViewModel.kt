@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
         private val mSchedulerProvider: SchedulerProvider
-) : BaseViewModel<SplashNavigator>() {
+) : BaseViewModel() {
 
 }

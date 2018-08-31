@@ -12,7 +12,6 @@ import android.support.annotation.LayoutRes
 import android.support.annotation.Size
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,15 +19,15 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.util.autoCleared
-import com.example.cleanarchitecture.util.showLoadingDialog
 import dagger.android.support.AndroidSupportInjection
+import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import javax.inject.Inject
 
 const val PERMISSION_REQUEST_CODE = Activity.RESULT_FIRST_USER + 1
 
-abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragment(),
-        EasyPermissions.PermissionCallbacks, BaseNavigator {
+abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment(),
+        EasyPermissions.PermissionCallbacks {
 
     abstract val bindingVariable: Int
 
@@ -39,21 +38,8 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
 
     var viewDataBinding by autoCleared<T>()
 
-    private var mAlertDialog: AlertDialog? = null
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    override fun showLoading() {
-        hideLoading()
-        mAlertDialog = showLoadingDialog()
-    }
-
-    override fun hideLoading() {
-        if (mAlertDialog != null && mAlertDialog!!.isShowing) {
-            mAlertDialog!!.cancel()
-        }
-    }
 
     fun hideKeyboard() {
         val view = activity!!.currentFocus
@@ -141,12 +127,10 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
         }
     }
 
-    /**
-     * Y can use android annotation for register permission accepted
-     * @AfterPermissionGranted(PERMISSION_REQUEST_CODE)
-     * fun permissionAccepted() {
-     * }
-     */
+    @AfterPermissionGranted(PERMISSION_REQUEST_CODE)
+    open fun permissionAccepted() {
+
+    }
 
     private fun performDependencyInjection() {
         AndroidSupportInjection.inject(this)

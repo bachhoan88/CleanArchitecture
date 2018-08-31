@@ -4,15 +4,11 @@ import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.Observer
 import com.example.cleanarchitecture.RxSchedulersOverrideRule
 import com.example.cleanarchitecture.createItem
-import com.example.cleanarchitecture.createUser
 import com.example.cleanarchitecture.domain.model.Item
 import com.example.cleanarchitecture.domain.usecase.item.SearchItemUseCase
-import com.example.cleanarchitecture.domain.usecase.user.FindUserUseCase
 import com.example.cleanarchitecture.mock
 import com.example.cleanarchitecture.model.RepoItem
 import com.example.cleanarchitecture.model.RepoItemMapper
-import com.example.cleanarchitecture.model.UserItem
-import com.example.cleanarchitecture.model.UserItemMapper
 import com.example.cleanarchitecture.rx.AppSchedulerProvider
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
@@ -26,7 +22,6 @@ import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.BDDMockito.given
 import org.mockito.Mock
-import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 /**
@@ -41,8 +36,6 @@ class MainViewModelTest {
     private val schedulerProvider = AppSchedulerProvider()
 
     private val repoItemMapper = RepoItemMapper()
-
-    private val mainNavigator = mock<MainNavigator>()
 
     @Rule
     @JvmField
@@ -74,7 +67,6 @@ class MainViewModelTest {
     fun testSearchUserId() {
         val query = "Bach"
         mainViewModel.query.value = query
-        mainViewModel.navigator = null
 
         val item = createItem()
         val listItem: List<Item> = arrayListOf(item)
