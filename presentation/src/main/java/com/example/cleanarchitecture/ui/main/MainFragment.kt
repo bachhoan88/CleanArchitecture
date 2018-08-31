@@ -41,9 +41,4 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             adapter.submitList(it)
         })
     }
-
-    override fun showLoading() {
-        super.showLoading()
-        hideKeyboard()
-    }
 }
