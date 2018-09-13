@@ -1,6 +1,6 @@
 package com.example.cleanarchitecture.util
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 
 /**
  * A LiveData class that has `null` value.

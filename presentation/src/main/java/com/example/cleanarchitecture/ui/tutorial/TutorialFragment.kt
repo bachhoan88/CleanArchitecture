@@ -1,31 +1,27 @@
-package com.example.cleanarchitecture.ui.login
+package com.example.cleanarchitecture.ui.tutorial
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
-import com.example.cleanarchitecture.databinding.FragmentLoginBinding
+import com.example.cleanarchitecture.databinding.FragmentTutorialBinding
 
-class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
-
-
+class TutorialFragment : BaseFragment<FragmentTutorialBinding, TutorialViewModel>() {
     companion object {
-        fun newInstance() = LoginFragment()
+        fun newInstance() = TutorialFragment()
     }
 
     override val bindingVariable: Int
         get() = BR.viewModel
 
     override val layoutId: Int
-        get() = R.layout.fragment_login
+        get() = R.layout.fragment_tutorial
 
-    override val viewModel: LoginViewModel
-        get() = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
+    override val viewModel: TutorialViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(TutorialViewModel::class.java)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     }
-
-
 }

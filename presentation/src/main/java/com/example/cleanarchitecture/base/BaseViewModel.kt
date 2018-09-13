@@ -1,6 +1,6 @@
 package com.example.cleanarchitecture.base
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.example.cleanarchitecture.domain.usecase.UseCase
 import io.reactivex.disposables.CompositeDisposable
 
@@ -12,7 +12,9 @@ abstract class BaseViewModel constructor(
 
     override fun onCleared() {
         compositeDisposable.dispose()
-        useCases.let { if (it.isNotEmpty()) it.forEach { it!!.onCleared() } }
+        useCases.let { userCases ->
+            if (userCases.isNotEmpty()) userCases.forEach { it?.onCleared() }
+        }
         super.onCleared()
     }
 }

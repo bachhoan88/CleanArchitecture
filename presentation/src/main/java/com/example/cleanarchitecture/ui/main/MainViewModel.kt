@@ -1,6 +1,6 @@
 package com.example.cleanarchitecture.ui.main
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.cleanarchitecture.base.BaseViewModel
 import com.example.cleanarchitecture.domain.usecase.item.SearchItemUseCase
 import com.example.cleanarchitecture.model.RepoItem
@@ -16,17 +16,24 @@ class MainViewModel @Inject constructor(
 
     val data = MutableLiveData<List<RepoItem>>()
     val query = MutableLiveData<String>()
+    val loading = MutableLiveData<Boolean>().apply { value = false }
 
     fun searchRepo() {
+        query.value?.let { input ->
+            if (input.isNotBlank()) {
+                loading.value = true
 
-        query.value?.let {
-            if (it.isNotBlank()) {
-                compositeDisposable.add(mSearchItemUseCase.createObservable(SearchItemUseCase.Params(query = it, pageNumber = 1))
+                compositeDisposable.add(mSearchItemUseCase.createObservable(SearchItemUseCase.Params(query = input, pageNumber = 1))
                         .subscribeOn(mSchedulerProvider.io())
                         .observeOn(mSchedulerProvider.ui())
-                        .map { it.map { mRepoItemMapper.mapToPresentation(it) } }
-                        .subscribe({
-                            data.value = it
+                        .doFinally { loading.value = false }
+                        .map { items ->
+                            items.map { item ->
+                                mRepoItemMapper.mapToPresentation(item)
+                            }
+                        }
+                        .subscribe({ items ->
+                            data.value = items
                         }, {})
                 )
             }

@@ -1,7 +1,7 @@
 package com.example.cleanarchitecture.ui.main
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
-import android.arch.lifecycle.Observer
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.example.cleanarchitecture.RxSchedulersOverrideRule
 import com.example.cleanarchitecture.createItem
 import com.example.cleanarchitecture.domain.model.Item
@@ -61,6 +61,7 @@ class MainViewModelTest {
         mainViewModel.searchRepo()
 
         assertThat(mainViewModel.data.value, nullValue())
+        assertEquals(mainViewModel.loading.value, false)
     }
 
     @Test

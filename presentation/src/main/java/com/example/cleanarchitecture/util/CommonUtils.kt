@@ -2,8 +2,8 @@ package com.example.cleanarchitecture.util
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import com.example.cleanarchitecture.R
 
 fun Fragment.showLoadingDialog(): AlertDialog =

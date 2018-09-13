@@ -11,7 +11,7 @@ android {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -32,6 +32,8 @@ android {
 
 dependencies {
     implementation deps.kotlin.stdlib
+    // androidx core
+    implementation deps.androidx.core
 
     implementation deps.modules.domain
 

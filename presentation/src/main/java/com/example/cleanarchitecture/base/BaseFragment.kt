@@ -1,32 +1,31 @@
 package com.example.cleanarchitecture.base
 
 import android.app.Activity
-import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
 import android.content.pm.PackageManager
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.os.IBinder
-import android.support.annotation.LayoutRes
-import android.support.annotation.Size
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.annotation.LayoutRes
+import androidx.annotation.Size
+import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProvider
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.util.autoCleared
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import javax.inject.Inject
 
 const val PERMISSION_REQUEST_CODE = Activity.RESULT_FIRST_USER + 1
 
-abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment(),
+abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFragment(),
         EasyPermissions.PermissionCallbacks {
 
     abstract val bindingVariable: Int
@@ -60,22 +59,17 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
         imm?.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
     }
 
-    fun findFragment(TAG: String): Fragment? {
+    fun findFragment(TAG: String): androidx.fragment.app.Fragment? {
         return activity!!.supportFragmentManager.findFragmentByTag(TAG)
     }
 
-    fun replaceFragment(fragment: Fragment, TAG: String?, addToBackStack: Boolean? = false, transit: Int? = -1) {
+    fun replaceFragment(fragment: androidx.fragment.app.Fragment, TAG: String?, addToBackStack: Boolean? = false, transit: Int? = -1) {
         val transaction = activity!!.supportFragmentManager!!.beginTransaction()
                 .replace(R.id.container, fragment)
 
         addToBackStack?.let { if (it) transaction.addToBackStack(TAG) }
         transit?.let { if (it != -1) transaction.setTransition(it) }
         transaction.commit()
-    }
-
-    override fun onAttach(context: Context?) {
-        performDependencyInjection()
-        super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,9 +124,5 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
     @AfterPermissionGranted(PERMISSION_REQUEST_CODE)
     open fun permissionAccepted() {
 
-    }
-
-    private fun performDependencyInjection() {
-        AndroidSupportInjection.inject(this)
     }
 }

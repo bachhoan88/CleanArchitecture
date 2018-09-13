@@ -1,7 +1,7 @@
 package com.example.cleanarchitecture.di.builder
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.cleanarchitecture.ViewModelProviderFactory
 import com.example.cleanarchitecture.ui.main.MainViewModel
 import com.example.cleanarchitecture.ui.splash.SplashViewModel

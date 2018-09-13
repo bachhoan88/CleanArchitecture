@@ -1,4 +1,4 @@
-package com.example.cleanarchitecture.ui.login
+package com.example.cleanarchitecture.ui.tutorial
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.cleanarchitecture.RxSchedulersOverrideRule
@@ -11,10 +11,10 @@ import org.junit.rules.TestRule
 import org.mockito.MockitoAnnotations
 
 /**
- * Unit Test for [LoginViewModel]
+ * Unit Test for [TutorialViewModel]
  */
-class LoginViewModelTest {
-    private lateinit var loginViewModel: LoginViewModel
+class TutorialViewModelTest {
+    private lateinit var tutorialViewModel: TutorialViewModel
 
     private val schedulerProvider = AppSchedulerProvider()
 
@@ -32,6 +32,6 @@ class LoginViewModelTest {
         MockitoAnnotations.initMocks(this)
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> Schedulers.trampoline() }
 
-        loginViewModel = LoginViewModel(schedulerProvider)
+        tutorialViewModel = TutorialViewModel(schedulerProvider)
     }
 }

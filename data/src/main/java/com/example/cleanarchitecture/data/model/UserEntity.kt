@@ -1,6 +1,6 @@
 package com.example.cleanarchitecture.data.model
 
-import android.arch.persistence.room.Entity
+import androidx.room.Entity
 import com.example.cleanarchitecture.data.base.EntityMapper
 import com.example.cleanarchitecture.data.base.ModelEntity
 import com.example.cleanarchitecture.domain.model.User

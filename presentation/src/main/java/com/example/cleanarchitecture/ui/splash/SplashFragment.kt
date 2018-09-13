@@ -1,6 +1,6 @@
 package com.example.cleanarchitecture.ui.splash
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R

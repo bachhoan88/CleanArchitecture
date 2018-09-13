@@ -15,8 +15,8 @@ class ItemRepositoryImpl @Inject constructor(
 ) : ItemRepository {
     override fun searchItems(query: String, page: Int?): Single<List<Item>> {
         return mItemApi.searchRepos(query = query, page = if (page == null) 0 else page)
-                .map {
-                    it.items.map { mItemEntityMapper.mapToDomain(it) }
+                .map { response ->
+                    response.items.map { mItemEntityMapper.mapToDomain(it) }
                 }
                 .doOnError { Throwable("Not found!") }
     }

@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.cleanarchitecture.ui.splash.SplashViewModel"/>
+            type="com.example.cleanarchitecture.ui.tutorial.TutorialViewModel"/>
 
     </data>
 

@@ -2,7 +2,6 @@ package com.example.cleanarchitecture.data.di
 
 import com.example.cleanarchitecture.data.remote.api.ItemApi
 import com.example.cleanarchitecture.data.remote.api.UserApi
-import com.example.cleanarchitecture.data.remote.factory.RxErrorHandlingCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

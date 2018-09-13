@@ -1,10 +1,10 @@
 package com.example.cleanarchitecture.base
 
-import android.databinding.ViewDataBinding
-import android.support.v7.recyclerview.extensions.AsyncDifferConfig
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.util.DiffUtil
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.AsyncDifferConfig
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import java.util.concurrent.Executors
 
 abstract class BaseRecyclerAdapter<T>(

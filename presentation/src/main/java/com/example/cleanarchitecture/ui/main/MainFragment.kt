@@ -1,9 +1,11 @@
 package com.example.cleanarchitecture.ui.main
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
@@ -31,14 +33,31 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val adapter = MainAdapter(bindingComponent, {}, {})
+        viewDataBinding.run {
+            listRepo.layoutManager = LinearLayoutManager(activity)
+            search.setOnClickListener {
+                hideKeyboard()
+                viewModel?.searchRepo()
+            }
+        }
 
-        viewDataBinding.listRepo.layoutManager = LinearLayoutManager(activity)
+        subscribeUI()
+    }
+
+    private fun subscribeUI() {
+        val adapter = MainAdapter(bindingComponent, { item ->
+            Toast.makeText(activity, item.name, Toast.LENGTH_SHORT).show()
+        })
         this.mainAdapter = adapter
+
         viewDataBinding.listRepo.adapter = mainAdapter
 
         viewModel.data.observe(this, Observer {
             adapter.submitList(it)
+        })
+
+        viewModel.loading.observe(this, Observer { loading ->
+            viewDataBinding.loading.visibility = if (loading) View.VISIBLE else View.GONE
         })
     }
 }

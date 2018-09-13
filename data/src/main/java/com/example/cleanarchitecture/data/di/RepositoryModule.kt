@@ -1,6 +1,6 @@
 package com.example.cleanarchitecture.data.di
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.content.Context
 import com.example.cleanarchitecture.data.Constants
 import com.example.cleanarchitecture.data.ItemRepositoryImpl

@@ -16,7 +16,8 @@ android {
         targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -49,10 +50,16 @@ android {
 }
 
 dependencies {
+    // androidx core
+    implementation deps.androidx.core
+
+    // support
     implementation deps.support.app_compat
     implementation deps.support.recyclerview
     implementation deps.support.cardview
     implementation deps.support.design
+//    implementation deps.support.multi_dex
+
     implementation deps.navigation.fragment_ktx
     implementation deps.room.runtime
     implementation deps.lifecycle.runtime
@@ -81,7 +88,7 @@ dependencies {
     kapt deps.dagger.compiler
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
-//    kapt deps.binding.compiler
+    kapt deps.binding.compiler
 
     testImplementation deps.junit
     testImplementation deps.mock_web_server
