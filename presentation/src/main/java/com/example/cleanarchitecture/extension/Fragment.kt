@@ -1,4 +1,4 @@
-package com.example.cleanarchitecture.util
+package com.example.cleanarchitecture.extension
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

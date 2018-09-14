@@ -1,9 +1,9 @@
 package com.example.cleanarchitecture.util
 
+import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.annotation.MainThread
 import java.util.concurrent.atomic.AtomicBoolean
 
 class SingleLiveData<T> : MutableLiveData<T>() {
@@ -30,9 +30,6 @@ class SingleLiveData<T> : MutableLiveData<T>() {
         super.setValue(t)
     }
 
-    /**
-     * Used for cases where T is Void, to make calls cleaner.
-     */
     @MainThread
     fun call() {
         this.value = null
