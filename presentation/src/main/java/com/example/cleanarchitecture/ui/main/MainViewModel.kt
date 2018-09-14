@@ -9,10 +9,10 @@ import com.example.cleanarchitecture.rx.SchedulerProvider
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-        private val mSearchItemUseCase: SearchItemUseCase,
-        private val mSchedulerProvider: SchedulerProvider,
-        private val mRepoItemMapper: RepoItemMapper
-) : BaseViewModel(mSearchItemUseCase) {
+        private val searchItemUseCase: SearchItemUseCase,
+        private val schedulerProvider: SchedulerProvider,
+        private val repoItemMapper: RepoItemMapper
+) : BaseViewModel(searchItemUseCase) {
 
     val data = MutableLiveData<List<RepoItem>>()
     val query = MutableLiveData<String>()
@@ -23,13 +23,13 @@ class MainViewModel @Inject constructor(
             if (input.isNotBlank()) {
                 loading.value = true
 
-                compositeDisposable.add(mSearchItemUseCase.createObservable(SearchItemUseCase.Params(query = input, pageNumber = 1))
-                        .subscribeOn(mSchedulerProvider.io())
-                        .observeOn(mSchedulerProvider.ui())
+                compositeDisposable.add(searchItemUseCase.createObservable(SearchItemUseCase.Params(query = input, pageNumber = 1))
+                        .subscribeOn(schedulerProvider.io())
+                        .observeOn(schedulerProvider.ui())
                         .doFinally { loading.value = false }
                         .map { items ->
                             items.map { item ->
-                                mRepoItemMapper.mapToPresentation(item)
+                                repoItemMapper.mapToPresentation(item)
                             }
                         }
                         .subscribe({ items ->

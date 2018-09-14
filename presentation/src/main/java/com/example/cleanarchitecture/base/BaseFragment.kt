@@ -123,11 +123,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     }
 
     @AfterPermissionGranted(PERMISSION_REQUEST_CODE)
-    open fun permissionAccepted() {
+    open fun permissionAccepted() { }
 
-    }
-
-    open fun onBackPressed() {
-
-    }
+    open fun onBackPressed() { }
 }
