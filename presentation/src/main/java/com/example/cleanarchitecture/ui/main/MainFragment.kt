@@ -36,7 +36,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         viewDataBinding.run {
             listRepo.layoutManager = LinearLayoutManager(activity)
             search.setOnClickListener {
-                hideKeyboard()
+                showSoftKeyboard(activity?.currentFocus?.windowToken, false)
                 viewModel?.searchRepo()
             }
         }
@@ -45,9 +45,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     }
 
     private fun subscribeUI() {
-        val adapter = MainAdapter(bindingComponent, { item ->
+        val adapter = MainAdapter(bindingComponent) { item ->
             Toast.makeText(activity, item.name, Toast.LENGTH_SHORT).show()
-        })
+        }
         this.mainAdapter = adapter
 
         viewDataBinding.listRepo.adapter = mainAdapter

@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.annotation.LayoutRes
 import androidx.annotation.Size
 import androidx.core.content.ContextCompat
@@ -40,27 +39,13 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    internal fun hideKeyboard() {
-        val view = activity!!.currentFocus
-        if (view != null) {
-            dismissKeyboard(view.windowToken)
-        }
-    }
-
-    internal fun showKeyboard(editText: EditText?) {
-        if (editText == null) return
-
-        val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-        imm?.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
-    }
-
     internal fun findFragment(TAG: String): androidx.fragment.app.Fragment? {
-        return activity!!.supportFragmentManager.findFragmentByTag(TAG)
+        return activity?.supportFragmentManager?.findFragmentByTag(TAG)
     }
 
     internal fun replaceFragment(fragment: androidx.fragment.app.Fragment, TAG: String?,
                                  addToBackStack: Boolean? = false, transit: Int? = -1) {
-        val transaction = activity!!.supportFragmentManager!!.beginTransaction()
+        val transaction = activity?.supportFragmentManager!!.beginTransaction()
                 .replace(R.id.container, fragment)
 
         addToBackStack?.let { if (it) transaction.addToBackStack(TAG) }
@@ -95,11 +80,9 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-    }
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {}
 
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-    }
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {}
 
     internal fun hasPermission(@Size(min = 1) vararg permissions: String): Boolean {
         for (perm in permissions) {
@@ -107,7 +90,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
                 return false
             }
         }
-
         return true
     }
 
@@ -117,13 +99,19 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
         }
     }
 
-    private fun dismissKeyboard(windowToken: IBinder) {
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.hideSoftInputFromWindow(windowToken, 0)
+    // if don't know exactly view can get from current force [activity?.currentFocus?.windowToken]
+    internal fun showSoftKeyboard(windowToken: IBinder?, show: Boolean) {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (show) {
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+        } else {
+            imm.hideSoftInputFromWindow(windowToken, 0)
+        }
     }
 
     @AfterPermissionGranted(PERMISSION_REQUEST_CODE)
-    open fun permissionAccepted() { }
+    open fun permissionAccepted() {
+    }
 
-    open fun onBackPressed() { }
+    open fun onBackPressed() {}
 }

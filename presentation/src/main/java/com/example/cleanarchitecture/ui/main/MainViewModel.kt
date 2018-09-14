@@ -16,7 +16,7 @@ class MainViewModel @Inject constructor(
 
     val data = MutableLiveData<List<RepoItem>>()
     val query = MutableLiveData<String>()
-    val loading = MutableLiveData<Boolean>().apply { value = false }
+    val loading = MutableLiveData<Boolean>().apply { postValue(false) }
 
     fun searchRepo() {
         query.value?.let { input ->
