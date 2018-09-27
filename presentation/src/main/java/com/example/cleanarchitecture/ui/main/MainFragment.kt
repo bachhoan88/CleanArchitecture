@@ -2,15 +2,14 @@ package com.example.cleanarchitecture.ui.main
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
 import com.example.cleanarchitecture.binding.FragmentDataBindingComponent
 import com.example.cleanarchitecture.databinding.FragmentMainBinding
+import com.example.cleanarchitecture.ui.splash.SplashFragment
 import com.example.cleanarchitecture.util.autoCleared
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
@@ -34,7 +33,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         super.onActivityCreated(savedInstanceState)
 
         viewDataBinding.run {
-            listRepo.layoutManager = LinearLayoutManager(activity)
             search.setOnClickListener {
                 showSoftKeyboard(activity?.currentFocus?.windowToken, false)
                 viewModel?.searchRepo()
@@ -46,7 +44,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     private fun subscribeUI() {
         val adapter = MainAdapter(bindingComponent) { item ->
-            Toast.makeText(activity, item.name, Toast.LENGTH_SHORT).show()
+            //            Toast.makeText(activity, item.name, Toast.LENGTH_SHORT).show()
+            replaceFragment(SplashFragment.newInstance(), SplashFragment.TAG, true)
         }
         this.mainAdapter = adapter
 
@@ -55,6 +54,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         viewModel.data.observe(this, Observer {
             adapter.submitList(it)
         })
+
 
         viewModel.loading.observe(this, Observer { loading ->
             viewDataBinding.loading.visibility = if (loading) View.VISIBLE else View.GONE
