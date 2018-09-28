@@ -16,7 +16,11 @@ open class FindUserUseCase @Inject constructor(
     }
 
     override fun createObservable(params: Params?): Single<User> {
-        return userRepository.getUser(params!!.userId, params.fromServer)
+        if (params != null) {
+            return userRepository.getUser(params.userId, params.fromServer)
+        }
+
+        return Single.error(Throwable("Params input not valid"))
     }
 
     data class Params(val userId: String, val fromServer: Boolean)

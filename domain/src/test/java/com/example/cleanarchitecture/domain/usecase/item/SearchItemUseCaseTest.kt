@@ -3,6 +3,7 @@ package com.example.cleanarchitecture.domain.usecase.item
 import com.example.cleanarchitecture.domain.createItem
 import com.example.cleanarchitecture.domain.repository.ItemRepository
 import io.reactivex.Single
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.BDDMockito.given
@@ -16,6 +17,11 @@ class SearchItemUseCaseTest {
     @Before
     fun setup() {
         searchItemUseCase = SearchItemUseCase(itemRepository)
+    }
+
+    @After
+    fun clear() {
+        searchItemUseCase.onCleared()
     }
 
     @Test

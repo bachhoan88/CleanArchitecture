@@ -62,6 +62,7 @@ dependencies {
 
     testImplementation deps.junit
     testImplementation deps.mock_web_server
+    testImplementation deps.robolectric.all
 
     testImplementation deps.mockito.core
     androidTestImplementation(deps.espresso.core, {

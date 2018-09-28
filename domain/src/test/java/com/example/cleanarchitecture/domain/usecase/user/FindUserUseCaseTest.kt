@@ -3,6 +3,7 @@ package com.example.cleanarchitecture.domain.usecase.user
 import com.example.cleanarchitecture.domain.createUser
 import com.example.cleanarchitecture.domain.repository.UserRepository
 import io.reactivex.Single
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyBoolean
@@ -20,6 +21,11 @@ class FindUserUseCaseTest {
         findUserUseCase = FindUserUseCase(userRepository)
     }
 
+    @After
+    fun clear() {
+        findUserUseCase.onCleared()
+    }
+
     @Test
     fun createObservable() {
         val params = FindUserUseCase.Params(userId = anyString(), fromServer = anyBoolean())
@@ -31,7 +37,7 @@ class FindUserUseCaseTest {
     @Test
     fun createObservableNull() {
         val test = findUserUseCase.createObservable(null).test()
-        test.assertError { false }
+        test.assertError { true }
     }
 
     @Test
