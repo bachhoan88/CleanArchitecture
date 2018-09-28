@@ -1,20 +1,22 @@
 package com.example.cleanarchitecture.data.remote.api
 
 import com.example.cleanarchitecture.data.ObserverTestUtils.getJson
-import com.example.cleanarchitecture.data.ObserverTestUtils.getValue
-import com.example.cleanarchitecture.domain.repository.ItemRepository
+import com.example.cleanarchitecture.data.remote.response.SearchRepoResponse
 import io.reactivex.observers.TestObserver
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import okio.Okio
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyString
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 @RunWith(JUnit4::class)
 class ItemApiTest {
@@ -50,30 +52,60 @@ class ItemApiTest {
     }
 
     @Test
-    fun testSearch() {
-        val testObserver = TestObserver<ItemRepository>()
+    fun testSearchResponseOk() {
+        val testObserver = TestObserver<SearchRepoResponse>()
+        val query = anyString()
+        val page = anyInt()
 
+        val path = "/search/repositories?q=$query&page=$page"
         // Mock a response with status 200 and sample JSON output
-        val mockReponse = MockResponse()
+        val mockResponse = MockResponse()
                 .setResponseCode(200)
                 .setBody(getJson("search.json"))
 
         // Enqueue request
-        mockWebServer.enqueue(mockReponse)
+        mockWebServer.enqueue(mockResponse)
 
-    }
+        // Call API
+        itemApi.searchRepos(query, page).toObservable().subscribe(testObserver)
+        testObserver.awaitTerminalEvent(2, TimeUnit.SECONDS)
 
-    private fun enqueueResponse(fileName: String, headers: Map<String, String> = emptyMap()) {
-        val inputStream = javaClass.classLoader
-                .getResourceAsStream("api-response/$fileName")
-        val source = Okio.buffer(Okio.source(inputStream))
-        val mockResponse = MockResponse()
-        for ((key, value) in headers) {
-            mockResponse.addHeader(key, value)
+        // then no error
+        testObserver.assertNoErrors()
+        // check values
+        testObserver.assertValueCount(1)
+
+        // get request to test
+        val request = mockWebServer.takeRequest()
+        assertEquals(request.path, path)
+
+        // test success value by search.json
+        testObserver.assertValue { searchRepoResponse ->
+            searchRepoResponse.total == 41 &&
+                    searchRepoResponse.items.get(0).id == 63478084
         }
-        mockWebServer.enqueue(
-                mockResponse
-                        .setBody(source.readString(Charsets.UTF_8))
-        )
+
     }
+
+    @Test
+    fun testSearchResponseError() {
+        val testObserver = TestObserver<SearchRepoResponse>()
+        val query = anyString()
+        val page = anyInt()
+
+        // Mock a response with status 200 and sample JSON output
+        val mockResponse = MockResponse()
+                .setResponseCode(500)
+
+        // Enqueue request
+        mockWebServer.enqueue(mockResponse)
+
+        // Call API
+        itemApi.searchRepos(query, page).toObservable().subscribe(testObserver)
+        testObserver.awaitTerminalEvent(2, TimeUnit.SECONDS)
+
+        // no value
+        testObserver.assertNoValues()
+    }
+
 }

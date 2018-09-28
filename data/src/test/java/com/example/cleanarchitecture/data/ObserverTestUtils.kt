@@ -1,8 +1,6 @@
 package com.example.cleanarchitecture.data
 
 import io.reactivex.Single
-import java.io.BufferedReader
-import java.io.InputStreamReader
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
@@ -26,14 +24,12 @@ object ObserverTestUtils {
         val inputStream = javaClass.classLoader
                 .getResourceAsStream("api-response/$fileName")
 
-        val reader = BufferedReader(InputStreamReader(inputStream))
         val out = StringBuilder()
-        var line: String
-
-        do {
-            line = reader.readLine()
-            out.append(line)
-        } while (line != null)
+        inputStream.bufferedReader().useLines { lines ->
+            lines.forEach { line ->
+                out.append(line)
+            }
+        }
 
         return out.toString()
     }
