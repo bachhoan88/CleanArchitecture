@@ -5,7 +5,5 @@ import com.example.cleanarchitecture.rx.SchedulerProvider
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
-        private val schedulerProvider: SchedulerProvider
-) : BaseViewModel() {
-
-}
+    private val schedulerProvider: SchedulerProvider
+) : BaseViewModel()

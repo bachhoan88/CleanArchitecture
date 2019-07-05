@@ -12,5 +12,4 @@ abstract class Mapper<in E, T> {
     fun observable(from: List<E>): Observable<List<T>> {
         return Observable.fromCallable { from.map { mapFrom(it) } }
     }
-
 }

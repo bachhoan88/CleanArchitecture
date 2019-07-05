@@ -22,7 +22,6 @@ class TutorialViewModelTest {
     @JvmField
     val rxSchedulersOverrideRule: RxSchedulersOverrideRule = RxSchedulersOverrideRule()
 
-
     @Rule
     @JvmField
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()

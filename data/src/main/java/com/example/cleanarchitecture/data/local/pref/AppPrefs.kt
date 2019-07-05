@@ -5,10 +5,10 @@ import androidx.core.content.edit
 import javax.inject.Inject
 
 class AppPrefs @Inject constructor(
-        mContext: Context
+    mContext: Context
 ) : PrefHelper {
     companion object {
-        private const val FIRST_RUN = "first_run";
+        private const val FIRST_RUN = "first_run"
     }
 
     var sharedPreferences = mContext.getSharedPreferences(mContext.packageName, Context.MODE_PRIVATE)
@@ -21,5 +21,4 @@ class AppPrefs @Inject constructor(
 
         return first
     }
-
 }

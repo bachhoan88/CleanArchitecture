@@ -4,7 +4,6 @@ import io.reactivex.Single
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
-
 object ObserverTestUtils {
     fun <T> getValue(singleData: Single<T>): T {
         val data = arrayOfNulls<Any>(1)
@@ -22,7 +21,7 @@ object ObserverTestUtils {
 
     fun getJson(fileName: String): String {
         val inputStream = javaClass.classLoader
-                .getResourceAsStream("api-response/$fileName")
+            .getResourceAsStream("api-response/$fileName")
 
         val out = StringBuilder()
         inputStream.bufferedReader().useLines { lines ->

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import java.util.concurrent.Executors
 
 abstract class BaseRecyclerAdapter<T>(
-        callBack: DiffUtil.ItemCallback<T>
+    callBack: DiffUtil.ItemCallback<T>
 ) : ListAdapter<T, BaseViewHolder<ViewDataBinding>>(
         AsyncDifferConfig.Builder<T>(callBack)
                 .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())

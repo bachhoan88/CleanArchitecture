@@ -49,18 +49,18 @@ class UserDaoTest : DbTest() {
         // create fake user
         val userId = "1"
         val userEntity1 = UserEntity(userId,
-                "Bach",
-                "bachhoan88",
-                "hoanbn88@gmail.com",
-                "0904576359  ",
-                "Tu Liem - Ha Noi")
+            "Bach",
+            "bachhoan88",
+            "hoanbn88@gmail.com",
+            "0904576359  ",
+            "Tu Liem - Ha Noi")
 
         val userEntity2 = UserEntity(userId,
-                "Hoan",
-                "abc123",
-                "email@gmail.com",
-                "01234567  ",
-                "Address")
+            "Hoan",
+            "abc123",
+            "email@gmail.com",
+            "01234567  ",
+            "Address")
         // first insert
         db.userDao().insert(userEntity1)
 
@@ -72,7 +72,6 @@ class UserDaoTest : DbTest() {
         testObserver.awaitTerminalEvent(2, TimeUnit.SECONDS)
 
         db.userDao().findById(userId).toObservable().subscribe(testObserver)
-        
         testObserver.assertNoErrors()
         testObserver.assertValue {
             it == userEntity2

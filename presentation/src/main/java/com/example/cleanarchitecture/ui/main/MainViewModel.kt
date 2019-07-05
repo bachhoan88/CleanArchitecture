@@ -9,9 +9,9 @@ import com.example.cleanarchitecture.rx.SchedulerProvider
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-        private val searchItemUseCase: SearchItemUseCase,
-        private val schedulerProvider: SchedulerProvider,
-        private val repoItemMapper: RepoItemMapper
+    private val searchItemUseCase: SearchItemUseCase,
+    private val schedulerProvider: SchedulerProvider,
+    private val repoItemMapper: RepoItemMapper
 ) : BaseViewModel(searchItemUseCase) {
 
     val data = MutableLiveData<List<RepoItem>>()
@@ -39,5 +39,4 @@ class MainViewModel @Inject constructor(
             }
         }
     }
-
 }

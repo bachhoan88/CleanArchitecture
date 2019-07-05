@@ -3,14 +3,13 @@ package com.example.cleanarchitecture.model
 import com.example.cleanarchitecture.base.ItemMapper
 import com.example.cleanarchitecture.base.ModelItem
 import com.example.cleanarchitecture.domain.model.Item
-import com.example.cleanarchitecture.domain.model.Model
 import javax.inject.Inject
 
 data class RepoItem(
-        val id: Int,
-        val name: String,
-        val description: String,
-        val url: String
+    val id: Int,
+    val name: String,
+    val description: String,
+    val url: String
 ) : ModelItem()
 
 class RepoItemMapper @Inject constructor() : ItemMapper<Item, RepoItem> {
@@ -27,5 +26,4 @@ class RepoItemMapper @Inject constructor() : ItemMapper<Item, RepoItem> {
         description = modelItem.description,
         url = modelItem.url
     )
-
 }

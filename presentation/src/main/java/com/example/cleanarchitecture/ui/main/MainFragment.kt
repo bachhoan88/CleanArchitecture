@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
 import com.example.cleanarchitecture.binding.FragmentDataBindingComponent
 import com.example.cleanarchitecture.databinding.FragmentMainBinding
-import com.example.cleanarchitecture.ui.splash.SplashFragment
+import com.example.cleanarchitecture.extension.showSoftKeyboard
 import com.example.cleanarchitecture.util.autoCleared
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     override val bindingVariable: Int
         get() = BR.viewModel
@@ -44,8 +43,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     private fun subscribeUI() {
         val adapter = MainAdapter(bindingComponent) { item ->
-            //            Toast.makeText(activity, item.name, Toast.LENGTH_SHORT).show()
-            replaceFragment(SplashFragment.newInstance(), SplashFragment.TAG, true)
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToTutorialFragment())
         }
         this.mainAdapter = adapter
 
@@ -54,7 +52,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         viewModel.data.observe(this, Observer {
             adapter.submitList(it)
         })
-
 
         viewModel.loading.observe(this, Observer { loading ->
             viewDataBinding.loading.visibility = if (loading) View.VISIBLE else View.GONE

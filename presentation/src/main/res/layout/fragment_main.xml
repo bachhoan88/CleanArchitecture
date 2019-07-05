@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/search_hint"
-            android:text="@={viewModel.query}"
+            android:inputType="" android:text="@={viewModel.query}"
             app:layout_constraintEnd_toStartOf="@+id/search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

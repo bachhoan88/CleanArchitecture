@@ -84,7 +84,6 @@ class ItemApiTest {
             searchRepoResponse.total == 41 &&
                     searchRepoResponse.items.get(0).id == 63478084
         }
-
     }
 
     @Test
@@ -107,5 +106,4 @@ class ItemApiTest {
         // no value
         testObserver.assertNoValues()
     }
-
 }

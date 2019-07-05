@@ -9,7 +9,5 @@ import javax.inject.Inject
  */
 
 class TutorialViewModel @Inject constructor(
-        private val schedulerProvider: SchedulerProvider
-) : BaseViewModel() {
-
-}
+    private val schedulerProvider: SchedulerProvider
+) : BaseViewModel()

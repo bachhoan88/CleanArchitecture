@@ -41,7 +41,6 @@ class MainViewModelTest {
     @JvmField
     val rxSchedulersOverrideRule: RxSchedulersOverrideRule = RxSchedulersOverrideRule()
 
-
     @Rule
     @JvmField
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
@@ -79,6 +78,5 @@ class MainViewModelTest {
         mainViewModel.searchRepo()
 
         assertEquals(mainViewModel.data.value, listItem.map { repoItemMapper.mapToPresentation(item) })
-
     }
 }

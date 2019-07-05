@@ -2,7 +2,6 @@ package com.example.cleanarchitecture.model
 
 import com.example.cleanarchitecture.createUserItem
 import com.example.cleanarchitecture.createUser
-import com.example.cleanarchitecture.model.UserItemMapper
 import org.junit.Before
 import org.junit.Test
 

@@ -1,21 +1,18 @@
 package com.example.cleanarchitecture.base
 
 import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.annotation.Size
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import com.example.cleanarchitecture.R
+import com.example.cleanarchitecture.util.Permission
 import com.example.cleanarchitecture.util.autoCleared
 import dagger.android.support.DaggerFragment
 import pub.devrel.easypermissions.AfterPermissionGranted
@@ -25,7 +22,7 @@ import javax.inject.Inject
 const val PERMISSION_REQUEST_CODE = Activity.RESULT_FIRST_USER + 1
 
 abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFragment(),
-        EasyPermissions.PermissionCallbacks {
+    EasyPermissions.PermissionCallbacks {
 
     abstract val bindingVariable: Int
 
@@ -39,27 +36,12 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    internal fun findFragment(TAG: String): androidx.fragment.app.Fragment? {
-        return activity?.supportFragmentManager?.findFragmentByTag(TAG)
-    }
-
-    internal fun replaceFragment(fragment: androidx.fragment.app.Fragment, TAG: String?,
-                                 addToBackStack: Boolean? = false, transit: Int? = -1) {
-        val transaction = activity?.supportFragmentManager!!.beginTransaction()
-                .replace(R.id.container, fragment)
-
-        addToBackStack?.let { if (it) transaction.addToBackStack(TAG) }
-        transit?.let { if (it != -1) transaction.setTransition(it) }
-        transaction.commit()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewDataBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         return viewDataBinding.root
     }
@@ -69,13 +51,11 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
         viewDataBinding.apply {
             setVariable(bindingVariable, viewModel)
             executePendingBindings()
-            setLifecycleOwner(this@BaseFragment)
+            lifecycleOwner = this@BaseFragment
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>,
-                                            grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
@@ -85,28 +65,16 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {}
 
     internal fun hasPermission(@Size(min = 1) vararg permissions: String): Boolean {
-        for (perm in permissions) {
-            if (ContextCompat.checkSelfPermission(activity!!, perm) != PackageManager.PERMISSION_GRANTED) {
-                return false
+        permissions.forEach {
+            when (ContextCompat.checkSelfPermission(requireActivity(), it) != PackageManager.PERMISSION_GRANTED) {
+                true -> return false
             }
         }
         return true
     }
 
     internal fun requestPermission(rationale: String, @Size(min = 1) vararg permissions: String) {
-        for (perm in permissions) {
-            EasyPermissions.requestPermissions(this, rationale, PERMISSION_REQUEST_CODE, perm)
-        }
-    }
-
-    // if don't know exactly view can get from current force [activity?.currentFocus?.windowToken]
-    internal fun showSoftKeyboard(windowToken: IBinder?, show: Boolean) {
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if (show) {
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-        } else {
-            imm.hideSoftInputFromWindow(windowToken, 0)
-        }
+        Permission.requestPermissions(this, rationale, PERMISSION_REQUEST_CODE, permissions)
     }
 
     @AfterPermissionGranted(PERMISSION_REQUEST_CODE)

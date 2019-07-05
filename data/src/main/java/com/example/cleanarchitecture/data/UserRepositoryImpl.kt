@@ -13,9 +13,9 @@ import javax.inject.Singleton
 
 @Singleton
 class UserRepositoryImpl @Inject constructor(
-        private val userApi: UserApi,
-        private val appDatabase: AppDatabase,
-        private val mapper: UserEntityMapper
+    private val userApi: UserApi,
+    private val appDatabase: AppDatabase,
+    private val mapper: UserEntityMapper
 ) : UserRepository {
     override fun signin(userName: String, password: String): Completable {
         return userApi.signin(userName, password)
@@ -24,8 +24,8 @@ class UserRepositoryImpl @Inject constructor(
     override fun getUser(id: String, fromServer: Boolean): Single<User> = when (fromServer) {
         false -> appDatabase.userDao().findById(id).map { mapper.mapToDomain(it) }
         true -> userApi.getUser(id)
-                .map { mapper.mapToDomain(it) }
-                .onErrorResumeNext(getUser(id, false))
+            .map { mapper.mapToDomain(it) }
+            .onErrorResumeNext(getUser(id, false))
     }
 
     override fun saveUser(user: User) {

@@ -6,14 +6,12 @@ import com.example.cleanarchitecture.data.model.ItemEntityMapper
 import com.example.cleanarchitecture.data.remote.api.ItemApi
 import com.example.cleanarchitecture.data.remote.response.SearchRepoResponse
 import io.reactivex.Single
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mockito.*
-import java.util.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 
 class ItemRepositoryImplTest {
     private lateinit var itemRepositoryImpl: ItemRepositoryImpl
@@ -30,7 +28,7 @@ class ItemRepositoryImplTest {
         val query = anyString()
         val page = anyInt()
 
-        val searchRepoResponse = SearchRepoResponse(total = 1, items = Arrays.asList(createItemEntity()))
+        val searchRepoResponse = SearchRepoResponse(total = 1, items = listOf(createItemEntity()))
         `when`(itemApi.searchRepos(query, page)).thenReturn(Single.just(searchRepoResponse))
         itemRepositoryImpl.searchItems(query, page).test().assertComplete()
     }
@@ -40,7 +38,7 @@ class ItemRepositoryImplTest {
         val query = anyString()
         val page = anyInt()
 
-        val searchRepoResponse = SearchRepoResponse(total = 1, items = Arrays.asList(createItemEntity()))
+        val searchRepoResponse = SearchRepoResponse(total = 1, items = listOf(createItemEntity()))
         `when`(itemApi.searchRepos(query, page)).thenReturn(Single.just(searchRepoResponse))
 
         val test = itemRepositoryImpl.searchItems(query, page).test()
