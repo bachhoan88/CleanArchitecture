@@ -4,23 +4,16 @@ import android.app.Application
 import android.content.Context
 import com.example.cleanarchitecture.data.di.NetworkModule
 import com.example.cleanarchitecture.data.di.RepositoryModule
-import com.example.cleanarchitecture.rx.AppSchedulerProvider
-import com.example.cleanarchitecture.rx.SchedulerProvider
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [ViewModelModule::class, NetworkModule::class, RepositoryModule::class])
+@Module(includes = [ViewModelModule::class, FragmentBuildersModule::class, NetworkModule::class, RepositoryModule::class])
 class AppModule {
+
     @Singleton
     @Provides
     fun providerContext(application: Application): Context {
         return application
-    }
-
-    @Singleton
-    @Provides
-    fun providerSchedulerProvider(): SchedulerProvider {
-        return AppSchedulerProvider()
     }
 }

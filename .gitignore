@@ -10,4 +10,4 @@
 /build
 /captures
 .externalNativeBuild
-buildSrc/build/*
+buildSrc/build/
