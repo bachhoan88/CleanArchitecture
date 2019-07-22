@@ -10,6 +10,7 @@ import com.example.cleanarchitecture.data.local.pref.AppPrefs
 import com.example.cleanarchitecture.data.local.pref.PrefHelper
 import com.example.cleanarchitecture.domain.repository.ItemRepository
 import com.example.cleanarchitecture.domain.repository.UserRepository
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -38,7 +39,7 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun providerAppPrefs(context: Context): AppPrefs {
-        return AppPrefs(context)
+        return AppPrefs(context, Gson())
     }
 
     @Provides

@@ -9,3 +9,7 @@ object HttpClient {
     const val READ_TIMEOUT = 10L
     const val WRITE_TIMEOUT = 10L
 }
+
+object Authentication {
+    const val MAX_RETRY = 1
+}

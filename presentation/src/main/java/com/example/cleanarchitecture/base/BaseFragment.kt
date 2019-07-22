@@ -6,20 +6,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.Size
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.cleanarchitecture.domain.annotation.Action
+import com.example.cleanarchitecture.domain.annotation.Redirect
 import com.example.cleanarchitecture.util.Permission
 import com.example.cleanarchitecture.util.autoCleared
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import javax.inject.Inject
-
-const val PERMISSION_REQUEST_CODE = Activity.RESULT_FIRST_USER + 1
 
 abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFragment(),
     EasyPermissions.PermissionCallbacks {
@@ -32,6 +35,9 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     abstract val layoutId: Int
 
     var viewDataBinding by autoCleared<T>()
+
+    private var toast: Toast? = null
+    private var snackBar: Snackbar? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -53,6 +59,17 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
             executePendingBindings()
             lifecycleOwner = this@BaseFragment
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        subscriberException()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        toast?.cancel()
+        snackBar?.dismiss()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -81,5 +98,22 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     open fun permissionAccepted() {
     }
 
+    private fun subscriberException() {
+        viewModel.snackBarMessage.observe(viewLifecycleOwner, Observer {  message ->
+            view?.let { snackBar = Snackbar.make(it, message, Snackbar.LENGTH_SHORT) }
+            snackBar?.show()
+        })
+    }
+
+    open fun positiveAction(@Action action: Int, data: Any? = null) { }
+
+    open fun negativeAction(@Action action: Int, data: Any? = null) { }
+
+    open fun redirectAction(@Redirect redirect: Int, data: Any? = null) { }
+
     open fun onBackPressed() {}
+
+    companion object {
+        private const val PERMISSION_REQUEST_CODE = Activity.RESULT_FIRST_USER + 1
+    }
 }

@@ -15,7 +15,7 @@ import dagger.multibindings.IntoMap
 @Suppress("unused")
 @Module
 abstract class ViewModelModule {
-    
+
     @Binds
     abstract fun bindViewModelFactory(providerFactory: ViewModelProviderFactory): ViewModelProvider.Factory
 

@@ -1,7 +1,7 @@
 package com.example.cleanarchitecture.di.builder
 
-import android.app.Application
 import android.content.Context
+import com.example.cleanarchitecture.MainApplication
 import com.example.cleanarchitecture.data.di.NetworkModule
 import com.example.cleanarchitecture.data.di.RepositoryModule
 import dagger.Module
@@ -13,7 +13,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providerContext(application: Application): Context {
-        return application
+    fun providerContext(application: MainApplication): Context {
+        return application.applicationContext
     }
 }

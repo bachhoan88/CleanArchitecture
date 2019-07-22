@@ -10,6 +10,7 @@ apply {
 dependencies {
     // kotlin core
     implementation(Libs.stdLib)
+    implementation(Libs.ktx)
 
     // rx
     implementation(Libs.rxJava)

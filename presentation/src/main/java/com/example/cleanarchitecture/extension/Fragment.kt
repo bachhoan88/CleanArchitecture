@@ -9,8 +9,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.cleanarchitecture.R
 
-fun Fragment.showLoadingDialog(): AlertDialog =
-        AlertDialog.Builder(activity!!).run {
+fun Fragment.showDialogLoading(): AlertDialog =
+        AlertDialog.Builder(requireContext()).run {
             setView(R.layout.progress_dialog)
             setCancelable(false)
         }.create().apply {

@@ -1,11 +1,12 @@
 object Versions {
-    val kotlin = "1.3.31"
+    val kotlin = "1.3.41"
     val androidPlugin = "3.4.1"
 
     val androidxCore = "1.0.1"
     val archCore = "2.0.0-beta01"
     val room = "2.1.0-alpha03"
     val lifecycle = "2.0.0-beta01"
+    val lifecycleSaved = "1.0.0-alpha01"
     val support = "1.1.0-alpha06"
     val supportCardView = "1.0.0"
     val supportLegacy = "1.0.0"
@@ -33,7 +34,7 @@ object Versions {
     val rxJava = "2.2.2"
     val rxAndroid = "2.1.0"
 
-    val timber = "4.5.1"
+    val timber = "4.7.1"
 
     val easyPermission = "3.0.0"
     val navigation = "2.1.0-alpha05"
@@ -133,7 +134,7 @@ object Libs {
     val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     val lifecycleJava8 = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycle}"
     val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
-    val lifecycleSavedState = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycle}"
+    val lifecycleSavedState = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycleSaved}"
 
     // RxKotlin & RxJava
     val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"

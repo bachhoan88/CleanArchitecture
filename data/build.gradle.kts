@@ -72,6 +72,7 @@ dependencies {
     kapt(Libs.daggerCompiler)
 
     implementation(Libs.okLogging)
+    implementation("com.jakewharton.timber:timber:4.7.1")
 
     // extension
     kapt(Libs.roomCompiler)

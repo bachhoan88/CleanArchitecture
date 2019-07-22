@@ -13,6 +13,8 @@ apply {
 
 android {
     compileSdkVersion(Android.targetSdk)
+    flavorDimensions("default")
+
     defaultConfig {
         applicationId = Android.applicationId
         minSdkVersion(Android.minSdk)
@@ -32,6 +34,16 @@ android {
         getByName(BuildType.debug) {
             isMinifyEnabled = BuildType.minifyDebug
             proguardFiles(BuildType.proguardDebug)
+        }
+    }
+
+    productFlavors {
+        create("develop") {
+            matchingFallbacks = listOf("debug", "qa")
+        }
+
+        create("production") {
+            matchingFallbacks = listOf("release")
         }
     }
 
@@ -67,6 +79,7 @@ dependencies {
     implementation(Libs.lifecycleExtensions)
     implementation(Libs.lifecycleJava8)
     implementation(Libs.lifecycleRuntime)
+    implementation(Libs.lifecycleSavedState)
 
     // Constraint Layout
     implementation(Libs.constraintlayout)
@@ -108,9 +121,6 @@ dependencies {
     implementation(Libs.coroutinesCore)
     implementation(Libs.coroutinesAndroid)
 
-    // exo player
-    implementation(Libs.exoPlayer)
-
     // Testing
     testImplementation(Libs.junit)
     testImplementation(Libs.archTesting) {
@@ -118,6 +128,9 @@ dependencies {
         exclude(group = "com.android.support", module = "support-annotations")
         exclude(group = "com.android.support", module = "support-core-utils")
     }
+
+    // logging
+    implementation(Libs.timber)
 
     testImplementation(Libs.mockitoCore)
     testImplementation(Libs.mockitoAll)
