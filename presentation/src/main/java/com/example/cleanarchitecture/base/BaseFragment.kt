@@ -1,11 +1,13 @@
 package com.example.cleanarchitecture.base
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.Size
@@ -16,6 +18,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.cleanarchitecture.domain.annotation.Action
 import com.example.cleanarchitecture.domain.annotation.Redirect
+import com.example.cleanarchitecture.extension.setVisible
+import com.example.cleanarchitecture.extension.showDialog
 import com.example.cleanarchitecture.util.Permission
 import com.example.cleanarchitecture.util.autoCleared
 import com.google.android.material.snackbar.Snackbar
@@ -59,10 +63,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
             executePendingBindings()
             lifecycleOwner = this@BaseFragment
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         subscriberException()
     }
 
@@ -76,10 +76,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {}
-
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {}
 
     internal fun hasPermission(@Size(min = 1) vararg permissions: String): Boolean {
         permissions.forEach {
@@ -98,18 +94,55 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     open fun permissionAccepted() {
     }
 
+    @SuppressLint("ShowToast")
     private fun subscriberException() {
-        viewModel.snackBarMessage.observe(viewLifecycleOwner, Observer {  message ->
-            view?.let { snackBar = Snackbar.make(it, message, Snackbar.LENGTH_SHORT) }
-            snackBar?.show()
-        })
+        viewModel.run {
+            snackBarMessage.observe(viewLifecycleOwner, Observer {  message ->
+                view?.let { snackBar = Snackbar.make(it, message, Snackbar.LENGTH_SHORT) }
+                snackBar?.show()
+            })
+
+            toastMessage.observe(viewLifecycleOwner, Observer { message ->
+                context?.let { toast = Toast.makeText(it, message, Toast.LENGTH_SHORT) }
+                toast?.show()
+            })
+
+            inlineException.observe(viewLifecycleOwner, Observer { tags ->
+                tags.forEach { tag ->
+                    val currentView = view?.findViewWithTag<TextView>(tag.name)
+                    currentView?.run {
+                        tag.message?.let { text = it }
+                        setVisible(true)
+                    }
+                }
+            })
+
+            alertException.observe(viewLifecycleOwner, Observer { msg ->
+                context?.showDialog(message = msg, positiveMessage = getString(android.R.string.ok))
+            })
+
+            dialogException.observe(viewLifecycleOwner, Observer { dialog ->
+                context?.showDialog(
+                    title = dialog.title,
+                    message = dialog.message,
+                    positiveMessage = dialog.positiveMessage,
+                    negativeMessage = dialog.positiveMessage,
+                    positiveAction = { positiveAction(dialog.positiveAction, dialog.positiveObject) },
+                    negativeAction = { negativeAction(dialog.negativeAction, dialog.negativeObject) }
+                )
+            })
+
+            redirectException.observe(viewLifecycleOwner, Observer { redirect ->
+                redirectAction(redirect.redirect, redirect.redirectObject)
+            })
+        }
     }
 
-    open fun positiveAction(@Action action: Int, data: Any? = null) { }
+    open fun positiveAction(@Action action: Int?, data: Any? = null) { }
 
-    open fun negativeAction(@Action action: Int, data: Any? = null) { }
+    open fun negativeAction(@Action action: Int?, data: Any? = null) { }
 
-    open fun redirectAction(@Redirect redirect: Int, data: Any? = null) { }
+    open fun redirectAction(@Redirect redirect: Int?, data: Any? = null) { }
 
     open fun onBackPressed() {}
 
