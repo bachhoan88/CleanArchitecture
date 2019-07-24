@@ -1,7 +1,7 @@
 Android Kotlin Clean Architecture & Components Example
 ===========================================================
 
-This is a sample app & basic code that uses Clean Architecture Components.
+This is a sample app & basic code that uses Clean Architecture & Components.
 
 **NOTE** It is a relatively more complex and complete example so if you are not familiar
 with [Architecture Components][arch], you are highly recommended to check other examples
@@ -10,21 +10,30 @@ in this repository first.
 Introduction
 -------------
 
-### Structure
-![Structure](images/clean_architecture_reloaded_layers.png "The app is composed of 3 modules ")
+### Data-Flow
+![Structure](images/data-flow.png "Data flow")
 
-
-### Template supporter [Clean Architect Components template][template]
-Support generate files such as: Fragment, Navigator, ViewModel, layout, Local Unit Test
+### Work-Flow
+![Structure](images/work-flow.png "Work flow")
 
 #### Domain Layer
+- Contains business model 
+- Contains business RULEs
+- Repository interface adapt 
 
 #### Data Layer
+- Implementation Repository
+- Executor API data
+- Storage data to local: Share preferences, database, external storage 
+- Mapper data model to domain model
+- Contains data service, third party data service  
 
 #### Presentation Layer
+- View (Activity/Fragment/Layout) Adapt data to view 
+- Validate/Submit data input from view via UseCase
 
-### Architecture
-#### MVVM 
+### Base Code
+#### 
 
 ### Building
 You can open the project in Android studio and press run.
