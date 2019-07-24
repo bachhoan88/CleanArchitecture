@@ -4,8 +4,8 @@ import android.content.Context
 import com.example.cleanarchitecture.data.local.pref.AppPrefs
 import com.example.cleanarchitecture.data.model.Token
 import com.google.gson.Gson
-import okhttp3.*
-import java.io.IOException
+import okhttp3.Interceptor
+import okhttp3.Response
 import javax.inject.Inject
 
 class HeaderInterceptor @Inject constructor(

@@ -10,6 +10,8 @@ interface OAuthApi {
 
     @POST("/oauth/token")
     @FormUrlEncoded
-    fun getAccessToken(@Field("grant_type") grantType: String,
-                       @Field("client_id")clientId: String): Call<Token>
+    fun getAccessToken(
+        @Field("grant_type") grantType: String,
+        @Field("client_id") clientId: String
+    ): Call<Token>
 }

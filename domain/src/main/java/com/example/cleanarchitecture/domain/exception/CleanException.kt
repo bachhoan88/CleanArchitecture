@@ -7,4 +7,3 @@ open class CleanException(
     @ExceptionType val exceptionType: Int,
     override val message: String?
 ) : Throwable(message)
-

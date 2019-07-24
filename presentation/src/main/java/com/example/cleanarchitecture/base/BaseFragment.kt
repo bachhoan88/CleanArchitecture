@@ -97,7 +97,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     @SuppressLint("ShowToast")
     private fun subscriberException() {
         viewModel.run {
-            snackBarMessage.observe(viewLifecycleOwner, Observer {  message ->
+            snackBarMessage.observe(viewLifecycleOwner, Observer { message ->
                 view?.let { snackBar = Snackbar.make(it, message, Snackbar.LENGTH_SHORT) }
                 snackBar?.show()
             })

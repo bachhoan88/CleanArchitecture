@@ -43,7 +43,7 @@ class OauthRefreshAuthenticator @Inject constructor(private val context: Context
             override fun onResponse(call: Call<Token>, response: retrofit2.Response<Token>) {
                 Timber.d("Refresh access token successful!")
                 when (response.isSuccessful) {
-                     true -> response.body()?.let { reCallRequest(request, retryCount, it) }
+                    true -> response.body()?.let { reCallRequest(request, retryCount, it) }
                 }
             }
         })
@@ -57,7 +57,11 @@ class OauthRefreshAuthenticator @Inject constructor(private val context: Context
 
     private fun retryCount(response: Response): Int {
         val retry = response.request()?.header(RETRY)
-        return try { retry?.toIntOrNull() ?: 0 } catch (exception: Exception) { 0 }
+        return try {
+            retry?.toIntOrNull() ?: 0
+        } catch (exception: Exception) {
+            0
+        }
     }
 
     private fun reCallRequest(request: Request?, retryCount: Int, token: Token): Request? {
