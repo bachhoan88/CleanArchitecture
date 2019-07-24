@@ -1,5 +1,6 @@
 package com.example.cleanarchitecture.data.local.pref
 
+import com.google.gson.Gson
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -15,7 +16,7 @@ class PrefHelperTest {
 
     @Before
     fun setup() {
-        prefHelper = AppPrefs(RuntimeEnvironment.application)
+        prefHelper = AppPrefs(RuntimeEnvironment.application, Gson())
     }
 
     @Test
@@ -23,7 +24,9 @@ class PrefHelperTest {
         val firstRun = prefHelper.isFirstRun()
         assertEquals(firstRun, true)
 
+        val firstChanged = false
+        prefHelper.setFirstRun(firstChanged)
         val otherRun = prefHelper.isFirstRun()
-        assertEquals(otherRun, false)
+        assertEquals(otherRun, firstChanged)
     }
 }

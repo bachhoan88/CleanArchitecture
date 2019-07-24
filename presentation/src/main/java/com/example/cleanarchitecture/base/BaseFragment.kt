@@ -94,6 +94,10 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     open fun permissionAccepted() {
     }
 
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) = Unit
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) = Unit
+
     @SuppressLint("ShowToast")
     private fun subscriberException() {
         viewModel.run {

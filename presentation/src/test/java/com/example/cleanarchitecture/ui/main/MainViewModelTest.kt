@@ -9,7 +9,6 @@ import com.example.cleanarchitecture.domain.usecase.item.SearchItemUseCase
 import com.example.cleanarchitecture.mock
 import com.example.cleanarchitecture.model.RepoItem
 import com.example.cleanarchitecture.model.RepoItemMapper
-import com.example.cleanarchitecture.rx.AppSchedulerProvider
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.schedulers.Schedulers
@@ -33,8 +32,6 @@ class MainViewModelTest {
     @Mock
     private lateinit var searchItemUseCase: SearchItemUseCase
 
-    private val schedulerProvider = AppSchedulerProvider()
-
     private val repoItemMapper = RepoItemMapper()
 
     @Rule
@@ -48,9 +45,9 @@ class MainViewModelTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> Schedulers.trampoline() }
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
 
-        mainViewModel = MainViewModel(searchItemUseCase, schedulerProvider, repoItemMapper)
+        mainViewModel = MainViewModel(searchItemUseCase, repoItemMapper)
     }
 
     @Test
