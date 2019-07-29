@@ -1,24 +1,19 @@
 package com.example.cleanarchitecture
 
 import android.os.Bundle
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.cleanarchitecture.base.BaseActivity
-import com.example.cleanarchitecture.ui.main.MainFragment
-import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+        setSupportActionBar(toolbar)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
-                    .commitNow()
-
-        }
+        val navController = findNavController(R.id.nav_fragment)
+        NavigationUI.setupWithNavController(toolbar, navController)
     }
-
 }

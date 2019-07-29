@@ -7,18 +7,16 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 open class FindUserUseCase @Inject constructor(
-        private val userRepository: UserRepository
+    private val userRepository: UserRepository
 ) : UseCase<FindUserUseCase.Params?, Single<User>>() {
 
-    override fun onCleared() {
-        // if Y want subscribe in UseCase
-        // Please unSubscribe it
-    }
-
     override fun createObservable(params: Params?): Single<User> {
-        return userRepository.getUser(params!!.userId, params.fromServer)
+        if (params != null) {
+            return userRepository.getUser(params.userId, params.fromServer)
+        }
+
+        return Single.error(Throwable("Params input not valid"))
     }
 
     data class Params(val userId: String, val fromServer: Boolean)
-
 }

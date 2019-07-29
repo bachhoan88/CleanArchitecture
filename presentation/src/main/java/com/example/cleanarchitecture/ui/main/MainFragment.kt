@@ -1,20 +1,19 @@
 package com.example.cleanarchitecture.ui.main
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
 import com.example.cleanarchitecture.binding.FragmentDataBindingComponent
 import com.example.cleanarchitecture.databinding.FragmentMainBinding
+import com.example.cleanarchitecture.extension.showSoftKeyboard
 import com.example.cleanarchitecture.util.autoCleared
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     override val bindingVariable: Int
         get() = BR.viewModel
@@ -31,14 +30,30 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val adapter = MainAdapter(bindingComponent, {}, {})
+        viewDataBinding.run {
+            search.setOnClickListener {
+                showSoftKeyboard(activity?.currentFocus?.windowToken, false)
+                viewModel?.searchRepo()
+            }
+        }
 
-        viewDataBinding.listRepo.layoutManager = LinearLayoutManager(activity)
+        subscribeUI()
+    }
+
+    private fun subscribeUI() {
+        val adapter = MainAdapter(bindingComponent) { item ->
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToTutorialFragment())
+        }
         this.mainAdapter = adapter
+
         viewDataBinding.listRepo.adapter = mainAdapter
 
         viewModel.data.observe(this, Observer {
             adapter.submitList(it)
+        })
+
+        viewModel.loading.observe(this, Observer { loading ->
+            viewDataBinding.loading.visibility = if (loading) View.VISIBLE else View.GONE
         })
     }
 }

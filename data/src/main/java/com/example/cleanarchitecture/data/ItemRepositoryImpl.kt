@@ -10,19 +10,18 @@ import javax.inject.Singleton
 
 @Singleton
 class ItemRepositoryImpl @Inject constructor(
-        private val mItemApi: ItemApi,
-        private val mItemEntityMapper: ItemEntityMapper
+    private val itemApi: ItemApi,
+    private val itemEntityMapper: ItemEntityMapper
 ) : ItemRepository {
     override fun searchItems(query: String, page: Int?): Single<List<Item>> {
-        return mItemApi.searchRepos(query = query, page = if (page == null) 0 else page)
-                .map {
-                    it.items.map { mItemEntityMapper.mapToDomain(it) }
-                }
-                .doOnError { Throwable("Not found!") }
+        return itemApi.searchRepos(query = query, page = if (page == null) 0 else page)
+            .map { response ->
+                response.items.map { itemEntityMapper.mapToDomain(it) }
+            }
+            .doOnError { Throwable("Not found!") }
     }
 
     override fun getItem(id: Int): Single<Item> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Single.error(Throwable(""))
     }
-
 }

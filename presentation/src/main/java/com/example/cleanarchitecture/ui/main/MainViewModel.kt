@@ -1,36 +1,33 @@
 package com.example.cleanarchitecture.ui.main
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.cleanarchitecture.base.BaseViewModel
 import com.example.cleanarchitecture.domain.usecase.item.SearchItemUseCase
+import com.example.cleanarchitecture.extension.add
 import com.example.cleanarchitecture.model.RepoItem
 import com.example.cleanarchitecture.model.RepoItemMapper
-import com.example.cleanarchitecture.rx.SchedulerProvider
+import com.example.cleanarchitecture.util.RxUtils
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-        private val mSearchItemUseCase: SearchItemUseCase,
-        private val mSchedulerProvider: SchedulerProvider,
-        private val mRepoItemMapper: RepoItemMapper
-) : BaseViewModel(mSearchItemUseCase) {
+    private val searchItemUseCase: SearchItemUseCase,
+    private val repoItemMapper: RepoItemMapper
+) : BaseViewModel() {
 
     val data = MutableLiveData<List<RepoItem>>()
     val query = MutableLiveData<String>()
+    val loading = MutableLiveData<Boolean>().apply { postValue(false) }
 
     fun searchRepo() {
-
-        query.value?.let {
-            if (it.isNotBlank()) {
-                compositeDisposable.add(mSearchItemUseCase.createObservable(SearchItemUseCase.Params(query = it, pageNumber = 1))
-                        .subscribeOn(mSchedulerProvider.io())
-                        .observeOn(mSchedulerProvider.ui())
-                        .map { it.map { mRepoItemMapper.mapToPresentation(it) } }
-                        .subscribe({
-                            data.value = it
-                        }, {})
-                )
+        query.value?.let { input ->
+            if (input.isNotEmpty()) {
+                searchItemUseCase.createObservable(SearchItemUseCase.Params(query = input, pageNumber = 1))
+                    .compose(RxUtils.applySingleScheduler(loading))
+                    .doFinally { loading.value = false }
+                    .map { it.map { repoItemMapper.mapToPresentation(it) } }
+                    .subscribe({ data.value = it }, {})
+                    .add(this)
             }
         }
     }
-
 }

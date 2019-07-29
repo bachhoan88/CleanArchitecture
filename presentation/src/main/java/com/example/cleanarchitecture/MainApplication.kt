@@ -1,23 +1,13 @@
 package com.example.cleanarchitecture
 
-import android.app.Activity
-import android.app.Application
 import com.example.cleanarchitecture.di.component.DaggerAppComponent
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import javax.inject.Inject
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
-class MainApplication : Application(), HasActivityInjector {
-    override fun activityInjector() = dispatchingAndroidInjector
+class MainApplication : DaggerApplication() {
+    override fun applicationInjector(): AndroidInjector<MainApplication> = DaggerAppComponent.factory().create(this)
 
     override fun onCreate() {
         super.onCreate()
-        DaggerAppComponent.builder()
-                .application(this)
-                .build()
-                .inject(this)
     }
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 }

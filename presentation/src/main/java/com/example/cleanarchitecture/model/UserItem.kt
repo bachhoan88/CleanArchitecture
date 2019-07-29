@@ -6,14 +6,13 @@ import com.example.cleanarchitecture.domain.model.User
 import javax.inject.Inject
 
 data class UserItem(
-        val id: String,
-        val name: String,
-        val username: String,
-        val email: String,
-        val phone: String,
-        val address: String
+    val id: String,
+    val name: String,
+    val username: String,
+    val email: String,
+    val phone: String,
+    val address: String
 ) : ModelItem()
-
 
 class UserItemMapper @Inject constructor() : ItemMapper<User, UserItem> {
     override fun mapToPresentation(model: User): UserItem = UserItem(

@@ -2,7 +2,6 @@ package com.example.cleanarchitecture.data.model
 
 import com.example.cleanarchitecture.data.createUser
 import com.example.cleanarchitecture.data.createUserEntity
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 

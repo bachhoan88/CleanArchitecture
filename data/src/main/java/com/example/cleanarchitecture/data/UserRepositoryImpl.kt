@@ -13,24 +13,24 @@ import javax.inject.Singleton
 
 @Singleton
 class UserRepositoryImpl @Inject constructor(
-        private val mUserApi: UserApi,
-        private val mAppDatabase: AppDatabase,
-        private val mMapper: UserEntityMapper
+    private val userApi: UserApi,
+    private val appDatabase: AppDatabase,
+    private val mapper: UserEntityMapper
 ) : UserRepository {
     override fun signin(userName: String, password: String): Completable {
-        return mUserApi.signin(userName, password)
+        return userApi.signin(userName, password)
     }
 
     override fun getUser(id: String, fromServer: Boolean): Single<User> = when (fromServer) {
-        false -> mAppDatabase.userDao().findById(id).map { mMapper.mapToDomain(it) }
-        true -> mUserApi.getUser(id)
-                .map { mMapper.mapToDomain(it) }
-                .onErrorResumeNext(getUser(id, false))
+        false -> appDatabase.userDao().findById(id).map { mapper.mapToDomain(it) }
+        true -> userApi.getUser(id)
+            .map { mapper.mapToDomain(it) }
+            .onErrorResumeNext(getUser(id, false))
     }
 
     override fun saveUser(user: User) {
-        return set(mMapper.mapToEntity(user))
+        return set(mapper.mapToEntity(user))
     }
 
-    private fun set(userEntity: UserEntity) = mAppDatabase.userDao().insert(userEntity)
+    private fun set(userEntity: UserEntity) = appDatabase.userDao().insert(userEntity)
 }

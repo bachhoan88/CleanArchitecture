@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 open class SearchItemUseCase @Inject constructor(
-        private val itemRepository: ItemRepository
+    private val itemRepository: ItemRepository
 ) : UseCase<SearchItemUseCase.Params, Single<List<Item>>>() {
     override fun createObservable(params: Params?): Single<List<Item>> {
         params?.let { return itemRepository.searchItems(query = params.query, page = params.pageNumber) }
@@ -20,4 +20,3 @@ open class SearchItemUseCase @Inject constructor(
 
     data class Params(val query: String, val pageNumber: Int? = 1)
 }
-
