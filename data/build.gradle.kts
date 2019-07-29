@@ -72,7 +72,7 @@ dependencies {
     kapt(Libs.daggerCompiler)
 
     implementation(Libs.okLogging)
-    implementation("com.jakewharton.timber:timber:4.7.1")
+    implementation(Libs.timber)
 
     // extension
     kapt(Libs.roomCompiler)
@@ -81,6 +81,11 @@ dependencies {
     // Test
     testImplementation(Libs.junit)
     testImplementation(Libs.mockitoCore)
+//    testImplementation(Libs.mockitoAll)
+    testImplementation(Libs.hamcrest)
+    testImplementation(Libs.archTesting)
+    testImplementation(Libs.stdLib)
+    testImplementation(Libs.kotlinTest)
     testImplementation(Libs.mockitoWebServer)
     testImplementation(Libs.robolectric)
 }

@@ -6,7 +6,7 @@ plugins {
 }
 
 apply {
-    plugin(GradlePlugins.navigationSafe)
+    plugin(GradlePlugins.navigationSafeKotlin)
     from("../ktlint.gradle")
     from("../jacoco.gradle")
 }
@@ -110,8 +110,12 @@ dependencies {
     implementation(Libs.permission)
 
     // module
-    implementation(project(Modules.domain))
-    implementation(project(Modules.data))
+    implementation(project(Modules.domain)) {
+        exclude(group = "com.example.cleanarchitecture", module = "domain")
+    }
+    implementation(project(Modules.data)) {
+        exclude(group = "com.example.cleanarchitecture", module = "data")
+    }
 
     // Navigation
     implementation(Libs.navigationUiKtx)
@@ -121,17 +125,21 @@ dependencies {
     implementation(Libs.coroutinesCore)
     implementation(Libs.coroutinesAndroid)
 
-    // Testing
-    testImplementation(Libs.junit)
-    testImplementation(Libs.archTesting) {
-        exclude(group = "com.android.support", module = "support-compat")
-        exclude(group = "com.android.support", module = "support-annotations")
-        exclude(group = "com.android.support", module = "support-core-utils")
-    }
-
     // logging
     implementation(Libs.timber)
 
-    testImplementation(Libs.mockitoCore)
+//    androidTestImplementation (Libs.mockitoCore) {
+//        exclude(group = "net.bytebuddy")
+//    }
+
+    // Dependencies for local unit tests
+    // Dependencies for local unit tests
+    testImplementation(Libs.junit)
     testImplementation(Libs.mockitoAll)
+    testImplementation(Libs.hamcrest)
+    testImplementation(Libs.archTesting)
+    testImplementation(Libs.stdLib)
+    testImplementation(Libs.kotlinTest)
+    testImplementation(Libs.mockitoWebServer)
+    testImplementation(Libs.robolectric)
 }

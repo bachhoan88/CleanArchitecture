@@ -1,33 +1,21 @@
 package com.example.cleanarchitecture.ui.tutorial
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.cleanarchitecture.RxSchedulersOverrideRule
-import io.reactivex.android.plugins.RxAndroidPlugins
-import io.reactivex.schedulers.Schedulers
-import org.junit.Before
-import org.junit.Rule
-import org.junit.rules.TestRule
-import org.mockito.MockitoAnnotations
+import com.example.cleanarchitecture.ui.BaseViewModelTest
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
 /**
  * Unit Test for [TutorialViewModel]
  */
-class TutorialViewModelTest {
+@RunWith(JUnit4::class)
+class TutorialViewModelTest : BaseViewModelTest() {
+
     private lateinit var tutorialViewModel: TutorialViewModel
 
-    @Rule
-    @JvmField
-    val rxSchedulersOverrideRule: RxSchedulersOverrideRule = RxSchedulersOverrideRule()
-
-    @Rule
-    @JvmField
-    val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
-
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
-
-        tutorialViewModel = TutorialViewModel()
+    @Test
+    fun example() {
+        assertEquals(1 + 1, 2)
     }
 }

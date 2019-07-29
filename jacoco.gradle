@@ -22,10 +22,16 @@ task fullCoverageReport(type: JacocoReport) {
     def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
     def mainSrc = "${project.projectDir}/src/main/java"
 
-    getClassDirectories().setFrom(files([mainSrc]))
-    getClassDirectories().setFrom(files([debugTree]))
-    getExecutionData().setFrom(fileTree(dir: "$buildDir", includes: [
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: "$buildDir", includes: [
             "jacoco/testDebugUnitTest.exec",
             "outputs/code-coverage/connected/*coverage.ec"
-    ]))
+    ])
+}
+
+project.tasks.whenTaskAdded {
+    if (it.name == "testReleaseUnitTest") {
+        it.enabled = false
+    }
 }
