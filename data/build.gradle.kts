@@ -28,6 +28,7 @@ android {
         getByName(BuildType.debug) {
             isMinifyEnabled = BuildType.minifyDebug
             proguardFiles(BuildType.proguardDebug)
+            isTestCoverageEnabled = true
         }
     }
 

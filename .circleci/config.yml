@@ -35,6 +35,14 @@ jobs:
           name: Run Unit test
           command: ./gradlew lint test
 
+      - run:
+          name: Generate JaCoCo report
+          command: ./gradlew -PciBuild=true jacocoTestReport
+
+      - run:
+          name: Upload coverage report to CodeCov
+          command: bash <(curl -s https://codecov.io/bash)
+
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: presentation/build/reports
           destination: reports
