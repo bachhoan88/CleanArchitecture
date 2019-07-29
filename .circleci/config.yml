@@ -37,7 +37,7 @@ jobs:
 
       - run:
           name: Generate JaCoCo report
-          command: ./gradlew -PciBuild=true jacocoTestReport
+          command: ./gradlew -PciBuild=true fullCoverageReport
 
       - run:
           name: Upload coverage report to CodeCov
