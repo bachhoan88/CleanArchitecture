@@ -3,7 +3,7 @@ object Versions {
     val androidPlugin = "3.4.1"
 
     val androidxCore = "1.0.1"
-    val archCore = "2.0.0-beta01"
+    val archCore = "2.0.1"
     val room = "2.1.0-alpha03"
     val lifecycle = "2.0.0-beta01"
     val lifecycleSaved = "1.0.0-alpha01"

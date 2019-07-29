@@ -21,7 +21,9 @@ dependencies {
     implementation(Libs.daggerSupport)
 
     // test
-    testImplementation(Libs.koinTest)
-    testImplementation(Libs.mockitoCore)
     testImplementation(Libs.junit)
+    testImplementation(Libs.mockitoCore)
+    testImplementation(Libs.hamcrest)
+    testImplementation(Libs.stdLib)
+    testImplementation(Libs.kotlinTest)
 }
