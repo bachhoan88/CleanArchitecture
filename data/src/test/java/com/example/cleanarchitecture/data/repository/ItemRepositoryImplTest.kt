@@ -54,8 +54,6 @@ class ItemRepositoryImplTest {
         `when`(itemApi.searchRepos(query, page)).thenReturn(Single.error(Throwable("error")))
 
         val test = itemRepositoryImpl.searchItems(query, page).test()
-        test.assertError {
-            true
-        }
+        test.assertNotComplete()
     }
 }
