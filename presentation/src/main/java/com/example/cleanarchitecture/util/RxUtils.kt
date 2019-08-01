@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.example.cleanarchitecture.util
 
 import androidx.lifecycle.MutableLiveData
