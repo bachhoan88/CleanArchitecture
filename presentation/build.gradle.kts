@@ -8,7 +8,7 @@ plugins {
 apply {
     plugin(GradlePlugins.navigationSafeKotlin)
     from("../ktlint.gradle")
-    from("../jacoco.gradle")
+    from("jacoco.gradle")
 }
 
 android {
@@ -34,6 +34,7 @@ android {
         getByName(BuildType.debug) {
             isMinifyEnabled = BuildType.minifyDebug
             proguardFiles(BuildType.proguardDebug)
+            isTestCoverageEnabled = true
         }
     }
 
@@ -132,7 +133,6 @@ dependencies {
 //        exclude(group = "net.bytebuddy")
 //    }
 
-    // Dependencies for local unit tests
     // Dependencies for local unit tests
     testImplementation(Libs.junit)
     testImplementation(Libs.mockitoAll)
