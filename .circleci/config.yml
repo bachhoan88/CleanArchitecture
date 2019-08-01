@@ -36,10 +36,6 @@ jobs:
           command: ./gradlew lint test
 
       - run:
-          name: Generate JaCoCo report
-          command: ./gradlew -PciBuild=true fullCoverageReport
-
-      - run:
           name: Upload coverage report to CodeCov
           command: bash <(curl -s https://codecov.io/bash)
 
