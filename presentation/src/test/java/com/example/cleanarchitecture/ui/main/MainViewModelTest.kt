@@ -5,6 +5,7 @@ import com.example.cleanarchitecture.createItem
 import com.example.cleanarchitecture.domain.model.Item
 import com.example.cleanarchitecture.domain.usecase.item.SearchItemUseCase
 import com.example.cleanarchitecture.mock
+import com.example.cleanarchitecture.model.OwnerItemMapper
 import com.example.cleanarchitecture.model.RepoItem
 import com.example.cleanarchitecture.model.RepoItemMapper
 import com.example.cleanarchitecture.ui.BaseViewModelTest
@@ -25,7 +26,8 @@ class MainViewModelTest : BaseViewModelTest() {
     private lateinit var searchItemUseCase: SearchItemUseCase
 
     private lateinit var mainViewModel: MainViewModel
-    private val repoItemMapper = RepoItemMapper()
+    private val ownerItemMapper = OwnerItemMapper()
+    private val repoItemMapper = RepoItemMapper(ownerItemMapper)
 
     override fun setup() {
         super.setup()
