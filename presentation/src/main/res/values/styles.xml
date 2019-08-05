@@ -18,4 +18,5 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
 
+    <style name="AppTheme.ItemSelectable" />
 </resources>

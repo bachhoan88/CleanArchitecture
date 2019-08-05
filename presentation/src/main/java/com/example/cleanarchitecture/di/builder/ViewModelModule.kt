@@ -4,10 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.cleanarchitecture.ViewModelProviderFactory
 import com.example.cleanarchitecture.di.annotation.ViewModelKey
+import com.example.cleanarchitecture.ui.contributor.ContributorViewModel
 import com.example.cleanarchitecture.ui.main.MainViewModel
-import com.example.cleanarchitecture.ui.splash.SplashViewModel
-import com.example.cleanarchitecture.ui.tutorial.TutorialViewModel
-
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -26,11 +24,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(SplashViewModel::class)
-    abstract fun bindSplashViewModel(splashViewModel: SplashViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(TutorialViewModel::class)
-    abstract fun bindTutorialViewModel(tutorialViewModel: TutorialViewModel): ViewModel
+    @ViewModelKey(ContributorViewModel::class)
+    abstract fun bindRepoDetailViewModel(contributorViewModel: ContributorViewModel): ViewModel
 }

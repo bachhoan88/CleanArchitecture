@@ -1,5 +1,6 @@
 package com.example.cleanarchitecture.data.di
 
+import com.example.cleanarchitecture.data.remote.api.ContributorApi
 import com.example.cleanarchitecture.data.remote.api.ItemApi
 import com.example.cleanarchitecture.data.remote.api.UserApi
 import com.example.cleanarchitecture.data.remote.builder.RetrofitBuilder
@@ -25,4 +26,8 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideItemsApi(retrofit: Retrofit): ItemApi = retrofit.create(ItemApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideContributorApi(retrofit: Retrofit): ContributorApi = retrofit.create(ContributorApi::class.java)
 }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:app2="http://schemas.android.com/com.example.cleanarchitecture"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.cleanarchitecture.ui.contributor.ContributorViewModel"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dp_240"
+                android:gravity="center"
+                android:padding="@dimen/dp_16"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <ImageView
+                    android:id="@+id/user_avatar"
+                    android:contentDescription="@string/app_name"
+                    tools:src="@mipmap/ic_launcher"
+                    android:padding="@dimen/dp_8"
+                    app2:circleUrl="@{viewModel.avatar}"
+                    android:layout_width="@dimen/dp_196"
+                    android:layout_height="@dimen/dp_196"/>
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/dp_32"
+                    android:paddingStart="@dimen/dp_8"
+                    android:paddingEnd="@dimen/dp_8"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:text="@{viewModel.repoItem.fullName}"
+                    android:maxLines="1"
+                    android:textSize="@dimen/sp_22"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
+                    tools:text="google/abc"/>
+
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_contributor"
+            tools:itemCount="10"
+            tools:listitem="@layout/custom_repo_item"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

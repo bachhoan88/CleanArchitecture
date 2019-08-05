@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
     app:startDestination="@id/mainFragment">
@@ -8,14 +10,24 @@
         android:id="@+id/mainFragment"
         android:name="com.example.cleanarchitecture.ui.main.MainFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment_to_tutorialFragment"
-            app:destination="@id/tutorialFragment" />
+        tools:layout="@layout/fragment_main">
+
+        <action android:id="@+id/action_mainFragment_to_contributorFragment"
+                app:destination="@id/repoDetailFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
-        android:id="@+id/tutorialFragment"
-        tools:layout="@layout/fragment_tutorial"
-        android:name="com.example.cleanarchitecture.ui.tutorial.TutorialFragment"
-        android:label="TutorialFragment" />
+        android:id="@+id/repoDetailFragment"
+        android:name="com.example.cleanarchitecture.ui.contributor.ContributorFragment"
+        android:label="@string/contributor"
+        tools:layout="@layout/fragment_contributor">
+
+        <argument
+            android:name="repo"
+            app:argType="com.example.cleanarchitecture.model.RepoItem"/>
+
+    </fragment>
 </navigation>

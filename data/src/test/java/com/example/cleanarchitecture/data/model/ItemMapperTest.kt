@@ -21,8 +21,10 @@ class ItemMapperTest {
 
         assertEquals(itemEntity.id, item.id)
         assertEquals(itemEntity.name, item.name)
+        assertEquals(itemEntity.fullName, item.fullName)
         assertEquals(itemEntity.description, item.description)
         assertEquals(itemEntity.url, item.url)
+        assertEquals(itemEntity.stars, item.stars)
     }
 
     @Test
@@ -32,7 +34,9 @@ class ItemMapperTest {
 
         assertEquals(itemEntity.id, item.id)
         assertEquals(itemEntity.name, item.name)
+        assertEquals(itemEntity.fullName, item.fullName)
         assertEquals(itemEntity.description, item.description)
         assertEquals(itemEntity.url, item.url)
+        assertEquals(itemEntity.stars, item.stars)
     }
 }

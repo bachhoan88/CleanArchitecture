@@ -1,20 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
             name="repo"
-            type="com.example.cleanarchitecture.model.RepoItem" />
+            type="com.example.cleanarchitecture.model.RepoItem"/>
+
     </data>
 
-    <TextView
-        android:id="@android:id/text1"
-        android:text="@{repo.name}"
+    <androidx.cardview.widget.CardView
+        app:cardUseCompatPadding="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:minHeight="@dimen/dp_64"
+            android:background="@color/white"
+            style="@style/AppTheme.ItemSelectable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/dp_32"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_8"
+                android:text="@{repo.fullName}"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textSize="@dimen/sp_16"
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                app:layout_constraintEnd_toStartOf="@+id/stars"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="google/abc"/>
+
+            <TextView
+                android:id="@+id/stars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_star_border_black_24dp"
+                android:drawableTint="@color/gray"
+                android:gravity="center|end"
+                android:minWidth="@dimen/dp_72"
+                android:minHeight="@dimen/dp_32"
+                android:paddingStart="@dimen/dp_2"
+                android:paddingEnd="@dimen/dp_2"
+                android:text="@{repo.stars}"
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1104"/>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_8"
+                android:text="@{repo.description}"
+                android:textSize="@dimen/sp_14"
+                android:maxLines="2"
+                android:textColor="@color/gray"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                tools:text="Android app sample"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 </layout>
