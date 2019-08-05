@@ -1,8 +1,10 @@
 package com.example.cleanarchitecture
 
+import com.example.cleanarchitecture.data.model.ItemEntity
+import com.example.cleanarchitecture.data.model.OwnerEntity
 import com.example.cleanarchitecture.domain.model.Item
+import com.example.cleanarchitecture.domain.model.Owner
 import com.example.cleanarchitecture.domain.model.User
-import com.example.cleanarchitecture.model.RepoItem
 import com.example.cleanarchitecture.model.UserItem
 
 fun createUserItem(): UserItem = UserItem("1",
@@ -21,16 +23,22 @@ fun createUser(): User = User(
         "Thanh Liem - Ha Nam"
 )
 
-fun createItem(): Item = Item(
+fun createRepoItem() = ItemEntity(
         id = 1,
         name = "Bach",
-        description = "Framgia developer",
-        url = "https://github.com"
+        fullName = "Bach Hoan",
+        description = "framgia",
+        url = "",
+        stars = 1,
+        ownerEntity = OwnerEntity(id = 1, login = null, avatar = null)
 )
 
-fun createRepoItem(): RepoItem = RepoItem(
-        id = 1,
-        name = "Bach",
-        description = "Framgia developer",
-        url = "https://github.com"
+fun createItem() = Item(
+        id = 2,
+        name = "Hoan",
+        fullName = "Bach Hoan",
+        description = "ha nam",
+        url = "",
+        stars = 1,
+        owner = Owner(id = 1, login = null, avatar = null)
 )

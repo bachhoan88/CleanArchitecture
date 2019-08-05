@@ -8,10 +8,12 @@ import org.junit.Test
 
 class ItemMapperTest {
     private lateinit var itemEntityMapper: ItemEntityMapper
+    private lateinit var ownerEntityMapper: OwnerEntityMapper
 
     @Before
     fun setup() {
-        itemEntityMapper = ItemEntityMapper()
+        ownerEntityMapper = OwnerEntityMapper()
+        itemEntityMapper = ItemEntityMapper(ownerEntityMapper)
     }
 
     @Test
@@ -25,6 +27,7 @@ class ItemMapperTest {
         assertEquals(itemEntity.description, item.description)
         assertEquals(itemEntity.url, item.url)
         assertEquals(itemEntity.stars, item.stars)
+        assertEquals(itemEntity.ownerEntity, item.owner?.let { ownerEntityMapper.mapToEntity(it) })
     }
 
     @Test
@@ -38,5 +41,6 @@ class ItemMapperTest {
         assertEquals(itemEntity.description, item.description)
         assertEquals(itemEntity.url, item.url)
         assertEquals(itemEntity.stars, item.stars)
+        assertEquals(itemEntity.ownerEntity, item.owner?.let { ownerEntityMapper.mapToEntity(it) })
     }
 }
