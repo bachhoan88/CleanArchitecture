@@ -5,8 +5,10 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 
 fun View.isVisible() = this.visibility == View.VISIBLE
 
@@ -43,4 +45,12 @@ inline fun View.afterMeasured(crossinline f: View.() -> Unit) {
             }
         }
     })
+}
+
+@BindingAdapter("circleUrl")
+fun ImageView.circleUrl(url: String?) = url?.let {
+    Glide.with(context)
+        .load(it)
+        .apply(RequestOptions.circleCropTransform())
+        .into(this)
 }

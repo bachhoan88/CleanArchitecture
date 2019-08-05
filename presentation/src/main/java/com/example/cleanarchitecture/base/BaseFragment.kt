@@ -38,13 +38,13 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     @get:LayoutRes
     abstract val layoutId: Int
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     var viewDataBinding by autoCleared<T>()
 
     private var toast: Toast? = null
     private var snackBar: Snackbar? = null
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

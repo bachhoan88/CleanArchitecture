@@ -20,9 +20,8 @@ fun Fragment.showDialogLoading(): AlertDialog =
 
 fun Fragment.showSoftKeyboard(windowToken: IBinder?, show: Boolean) {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    if (show) {
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-    } else {
-        imm.hideSoftInputFromWindow(windowToken, 0)
+    when (show) {
+        true -> imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+        else -> imm.hideSoftInputFromWindow(windowToken, 0)
     }
 }
