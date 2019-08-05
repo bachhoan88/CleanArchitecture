@@ -78,9 +78,10 @@ dependencies {
 
     // lifecycle
     implementation(Libs.lifecycleExtensions)
-    implementation(Libs.lifecycleJava8)
-    implementation(Libs.lifecycleRuntime)
+    implementation(Libs.lifecycleLiveDataKtx)
+    implementation(Libs.lifecycleViewModel)
     implementation(Libs.lifecycleSavedState)
+    implementation(Libs.fragmentKtx)
 
     // Constraint Layout
     implementation(Libs.constraintlayout)

@@ -3,6 +3,7 @@ package com.example.cleanarchitecture.data.repository
 import com.example.cleanarchitecture.data.ItemRepositoryImpl
 import com.example.cleanarchitecture.data.createItemEntity
 import com.example.cleanarchitecture.data.model.ItemEntityMapper
+import com.example.cleanarchitecture.data.model.OwnerEntityMapper
 import com.example.cleanarchitecture.data.remote.api.ItemApi
 import com.example.cleanarchitecture.data.remote.response.SearchRepoResponse
 import io.reactivex.Single
@@ -15,7 +16,8 @@ import org.mockito.Mockito.mock
 
 class ItemRepositoryImplTest {
     private lateinit var itemRepositoryImpl: ItemRepositoryImpl
-    private val itemEntityMapper = ItemEntityMapper()
+    private val ownerEntityMapper = OwnerEntityMapper()
+    private val itemEntityMapper = ItemEntityMapper(ownerEntityMapper)
     private val itemApi = mock(ItemApi::class.java)
 
     @Before

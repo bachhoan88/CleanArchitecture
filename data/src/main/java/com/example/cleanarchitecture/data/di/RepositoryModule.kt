@@ -3,11 +3,13 @@ package com.example.cleanarchitecture.data.di
 import androidx.room.Room
 import android.content.Context
 import com.example.cleanarchitecture.data.Constants
+import com.example.cleanarchitecture.data.ContributorRepositoryImpl
 import com.example.cleanarchitecture.data.ItemRepositoryImpl
 import com.example.cleanarchitecture.data.UserRepositoryImpl
 import com.example.cleanarchitecture.data.local.db.AppDatabase
 import com.example.cleanarchitecture.data.local.pref.AppPrefs
 import com.example.cleanarchitecture.data.local.pref.PrefHelper
+import com.example.cleanarchitecture.domain.repository.ContributorRepository
 import com.example.cleanarchitecture.domain.repository.ItemRepository
 import com.example.cleanarchitecture.domain.repository.UserRepository
 import com.google.gson.Gson
@@ -51,6 +53,12 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun providerItemRepository(repository: ItemRepositoryImpl): ItemRepository {
+        return repository
+    }
+
+    @Provides
+    @Singleton
+    fun providerContributorRepository(repository: ContributorRepositoryImpl): ContributorRepository {
         return repository
     }
 }

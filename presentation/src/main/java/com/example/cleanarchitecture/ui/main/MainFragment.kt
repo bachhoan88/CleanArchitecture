@@ -2,8 +2,8 @@ package com.example.cleanarchitecture.ui.main
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
@@ -21,39 +21,42 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override val layoutId: Int
         get() = R.layout.fragment_main
 
-    override val viewModel: MainViewModel
-        get() = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+    override val viewModel: MainViewModel by viewModels { viewModelFactory }
 
     private var mainAdapter by autoCleared<MainAdapter>()
+
     private var bindingComponent = FragmentDataBindingComponent(this)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewDataBinding.run {
+        subscribeUI()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val adapter = MainAdapter(bindingComponent) { item ->
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToContributorFragment(item))
+        }
+        this.mainAdapter = adapter
+
+        with(viewDataBinding) {
             search.setOnClickListener {
                 showSoftKeyboard(activity?.currentFocus?.windowToken, false)
                 viewModel?.searchRepo()
             }
-        }
 
-        subscribeUI()
+            listRepo.adapter = mainAdapter
+        }
     }
 
-    private fun subscribeUI() {
-        val adapter = MainAdapter(bindingComponent) { item ->
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToTutorialFragment())
+    private fun subscribeUI() = with(viewModel) {
+        data.observe(viewLifecycleOwner) {
+            mainAdapter.submitList(it)
         }
-        this.mainAdapter = adapter
 
-        viewDataBinding.listRepo.adapter = mainAdapter
-
-        viewModel.data.observe(this, Observer {
-            adapter.submitList(it)
-        })
-
-        viewModel.loading.observe(this, Observer { loading ->
+        loading.observe(viewLifecycleOwner) { loading ->
             viewDataBinding.loading.visibility = if (loading) View.VISIBLE else View.GONE
-        })
+        }
     }
 }

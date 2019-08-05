@@ -5,8 +5,8 @@ object Versions {
     internal const val androidxCore = "1.0.1"
     internal const val archCore = "2.0.1"
     internal const val room = "2.1.0-alpha03"
-    internal const val lifecycle = "2.0.0-beta01"
-    internal const val lifecycleSaved = "1.0.0-alpha01"
+    internal const val lifecycle = "2.2.0-alpha02"
+    internal const val lifecycleSaved = "1.0.0-alpha02"
     internal const val support = "1.1.0-alpha06"
     internal const val supportCardView = "1.0.0"
     internal const val supportLegacy = "1.0.0"
@@ -44,16 +44,7 @@ object Versions {
     internal const val coroutines = "1.1.1"
 
     internal const val dagger = "2.23.2"
-    internal const val fragmentKtx = "1.1.0"
-    /**
-    versions.multi_dex = '1.0.3'
-    versions.apache_commons = "2.5"
-    versions.dexmaker = "2.2.0"
-    versions.paging = "1.0.0"
-    versions.work = "1.0.0-alpha02"
-    versions.navigation = "1.0.0-alpha01"
-    versions.easy_permission = "1.3.1"
-     */
+    internal const val fragmentKtx = "1.1.0-rc03"
 }
 
 object BuildPlugins {
@@ -107,8 +98,6 @@ object Libs {
     const val ktx = "androidx.core:core-ktx:${Versions.androidxCore}"
     const val archTesting = "androidx.arch.core:core-testing:${Versions.archCore}"
     const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
-    const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
-
     // Support libs
     const val supportAnnotations = "androidx.annotation:annotation:${Versions.support}"
     const val supportAppCompat = "androidx.appcompat:appcompat:${Versions.support}"
@@ -131,10 +120,14 @@ object Libs {
 
     // lifecycle
     const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime:${Versions.lifecycle}"
+    const val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata:${Versions.lifecycle}"
+    const val lifecycleLiveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
+    const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel:${Versions.lifecycle}"
     const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     const val lifecycleJava8 = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycle}"
     const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
     const val lifecycleSavedState = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycleSaved}"
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
 
     // RxKotlin & RxJava
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
