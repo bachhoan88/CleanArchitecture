@@ -7,6 +7,8 @@ plugins {
 
 apply {
     plugin(GradlePlugins.navigationSafeKotlin)
+    plugin(GradlePlugins.fabric)
+    plugin(GradlePlugins.playService)
     from("../ktlint.gradle")
     from("jacoco.gradle")
 }
@@ -143,4 +145,9 @@ dependencies {
     testImplementation(Libs.kotlinTest)
     testImplementation(Libs.mockitoWebServer)
     testImplementation(Libs.robolectric)
+
+    // Firebase analytics & fabric
+    implementation(Libs.firebaseCore)
+    implementation(Libs.firebaseAnalytics)
+    implementation(Libs.crashAnalytics)
 }

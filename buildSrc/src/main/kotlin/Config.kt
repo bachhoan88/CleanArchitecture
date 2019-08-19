@@ -44,13 +44,28 @@ object Versions {
     internal const val coroutines = "1.1.1"
 
     internal const val dagger = "2.23.2"
-    internal const val fragmentKtx = "1.1.0-rc03"
+    internal const val fragmentKtx = "1.2.0-alpha01"
+
+    internal const val googleService = "4.3.0"
+    internal const val fabric = "1.31.0"
+
+    internal const val firebaseCore = "17.0.1"
+    internal const val firebaseAnalytics = "17.0.1"
+    internal const val crashAnalytics = "2.10.1"
+}
+
+object Url {
+    const val fabric = "https://maven.fabric.io/public"
+    const val sonatype = "https://oss.sonatype.org/content/repositories/snapshots"
+    const val jitpack = "https://jitpack.io"
 }
 
 object BuildPlugins {
     const val androidPlugin = "com.android.tools.build:gradle:${Versions.androidPlugin}"
     const val kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val navigationSafe = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigationSafe}"
+    const val googleService = "com.google.gms:google-services:${Versions.googleService}"
+    const val fabric = "io.fabric.tools:gradle:${Versions.fabric}"
 }
 
 object Android {
@@ -71,6 +86,8 @@ object GradlePlugins {
     const val androidLib = "com.android.library"
     const val navigationSafe = "androidx.navigation.safeargs"
     const val navigationSafeKotlin = "androidx.navigation.safeargs.kotlin"
+    const val fabric = "io.fabric"
+    const val playService = "com.google.gms.google-services"
 }
 
 object Modules {
@@ -204,4 +221,8 @@ object Libs {
 
     const val daggerProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+
+    const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseCore}"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics:${Versions.firebaseAnalytics}"
+    const val crashAnalytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashAnalytics}"
 }

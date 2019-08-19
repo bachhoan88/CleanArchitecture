@@ -42,7 +42,8 @@ Base code
 - Added `Authorization`, `Interceptor` easily handler and `implementations` for your project if needed
 - Use `ktlint`, `kotlin-offical` for check code conventions, you can run `./gradlew ktlint`
 - Use `jacoco` for full Unit and Instrument test  
-- Added basically `circle-ci`, `gitlab-ci` with some work-flows 
+- Added basically `circle-ci`, `gitlab-ci` with some work-flows
+- Report bugs into `Crashlytics` via `Timber.e`
 
 
 ### Building
