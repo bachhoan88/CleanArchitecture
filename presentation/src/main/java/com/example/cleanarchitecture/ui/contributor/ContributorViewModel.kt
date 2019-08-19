@@ -10,6 +10,7 @@ import com.example.cleanarchitecture.model.ContributorItem
 import com.example.cleanarchitecture.model.ContributorItemMapper
 import com.example.cleanarchitecture.model.RepoItem
 import com.example.cleanarchitecture.util.RxUtils
+import timber.log.Timber
 import javax.inject.Inject
 
 class ContributorViewModel @Inject constructor(
@@ -32,6 +33,7 @@ class ContributorViewModel @Inject constructor(
                     .subscribe({
                         contributions.value = it
                     }, {
+                        Timber.e("Get contributor error: $it")
                         setThrowable(it)
                     })
                     .add(this)

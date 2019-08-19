@@ -7,6 +7,7 @@ import com.example.cleanarchitecture.extension.add
 import com.example.cleanarchitecture.model.RepoItem
 import com.example.cleanarchitecture.model.RepoItemMapper
 import com.example.cleanarchitecture.util.RxUtils
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -25,7 +26,10 @@ class MainViewModel @Inject constructor(
                     .compose(RxUtils.applySingleScheduler(loading))
                     .doFinally { loading.value = false }
                     .map { it.map { repoItemMapper.mapToPresentation(it) } }
-                    .subscribe({ data.value = it }, {})
+                    .subscribe({ data.value = it }, {
+                        Timber.e("Get repo error: $it")
+                        setThrowable(it)
+                    })
                     .add(this)
             }
         }

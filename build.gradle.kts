@@ -4,12 +4,17 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url = uri(Url.fabric)
+        }
     }
 
     dependencies {
         classpath(kotlin(module = "gradle-plugin", version = Versions.kotlin))
         classpath(BuildPlugins.androidPlugin)
         classpath(BuildPlugins.navigationSafe)
+        classpath(BuildPlugins.googleService)
+        classpath(BuildPlugins.fabric)
     }
 }
 
@@ -18,11 +23,11 @@ allprojects {
         google()
         jcenter()
         maven {
-            url = URI.create("https://jitpack.io")
+            url = URI.create(Url.jitpack)
         }
 
         maven {
-            url = URI.create("https://oss.sonatype.org/content/repositories/snapshots")
+            url = URI.create(Url.sonatype)
         }
     }
 }
