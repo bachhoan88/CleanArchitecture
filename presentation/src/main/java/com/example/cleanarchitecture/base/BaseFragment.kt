@@ -121,8 +121,8 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
                 }
             })
 
-            alertException.observe(viewLifecycleOwner, Observer { msg ->
-                context?.showDialog(message = msg, positiveMessage = getString(android.R.string.ok))
+            alertException.observe(viewLifecycleOwner, Observer { pair ->
+                context?.showDialog(title = pair.first, message = pair.second, positiveMessage = getString(android.R.string.ok))
             })
 
             dialogException.observe(viewLifecycleOwner, Observer { dialog ->
