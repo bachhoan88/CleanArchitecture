@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="internet_connection_error">No internet connection. Please check it and try again</string>
+    <string name="try_again">Try Again</string>
+    <string name="error_code_title">Error code: %d</string>
+    <string name="do_not_connection_url">Do not connect to `%s`, please check it</string>
+</resources>

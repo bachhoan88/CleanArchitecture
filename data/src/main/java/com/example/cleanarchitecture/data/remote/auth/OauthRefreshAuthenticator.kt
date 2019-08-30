@@ -37,7 +37,7 @@ class OauthRefreshAuthenticator @Inject constructor(private val context: Context
         val authApi = RetrofitBuilder(context).build().create(OAuthApi::class.java)
         authApi.refreshToken("refresh_token", "mobile").enqueue(object : retrofit2.Callback<Token> {
             override fun onFailure(call: Call<Token>, t: Throwable) {
-                Timber.e(t)
+                Timber.e("Refresh token failed, by $t")
             }
 
             override fun onResponse(call: Call<Token>, response: retrofit2.Response<Token>) {

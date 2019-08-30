@@ -18,6 +18,9 @@ Introduction
 ### Work-Flow
 ![Structure](images/work-flow.png "Work flow")
 
+### Handler-Error-Flow
+![Structure](images/handler-error-flow.png "Handler error flow")
+
 #### Domain Layer
 - Contains business model 
 - Contains business RULEs

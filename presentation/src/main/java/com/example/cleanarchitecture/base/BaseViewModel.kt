@@ -18,7 +18,7 @@ abstract class BaseViewModel constructor(
     val snackBarMessage = MutableLiveData<String>()
     val toastMessage = MutableLiveData<String>()
     val inlineException = MutableLiveData<List<Tag>>()
-    val alertException = MutableLiveData<String>()
+    val alertException = MutableLiveData<Pair<String?, String>>()
     val dialogException = MutableLiveData<Dialog>()
     val redirectException = MutableLiveData<Redirect>()
 
@@ -31,7 +31,7 @@ abstract class BaseViewModel constructor(
             is SnackBarException -> snackBarMessage.value = throwable.message
             is ToastException -> toastMessage.value = throwable.message
             is InlineException -> inlineException.value = throwable.tags.toList()
-            is AlertException -> alertException.value = throwable.message
+            is AlertException -> alertException.value = Pair(throwable.title, throwable.message)
             is DialogException -> dialogException.value = throwable.dialog
             is RedirectException -> redirectException.value = throwable.redirect
         }

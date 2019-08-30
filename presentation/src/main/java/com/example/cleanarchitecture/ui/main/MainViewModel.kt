@@ -28,6 +28,7 @@ class MainViewModel @Inject constructor(
                     .map { it.map { repoItemMapper.mapToPresentation(it) } }
                     .subscribe({ data.value = it }, {
                         Timber.e("Get repo error: $it")
+                        println("------- error: $it")
                         setThrowable(it)
                     })
                     .add(this)
