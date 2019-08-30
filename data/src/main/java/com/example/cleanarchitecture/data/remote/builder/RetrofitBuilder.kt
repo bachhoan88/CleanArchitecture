@@ -5,12 +5,12 @@ import com.example.cleanarchitecture.data.BuildConfig
 import com.example.cleanarchitecture.data.HttpClient
 import com.example.cleanarchitecture.data.R
 import com.example.cleanarchitecture.data.remote.auth.OauthRefreshAuthenticator
+import com.example.cleanarchitecture.data.remote.factory.RxErrorHandlingCallAdapterFactory
 import okhttp3.Authenticator
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -109,7 +109,9 @@ class RetrofitBuilder @Inject constructor(private val context: Context) {
             readTimeout(readTimeout, TimeUnit.SECONDS)
 
             if (logEnable) {
-                addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+                addInterceptor(HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                })
             }
 
             val auth: Authenticator? = when {
@@ -126,7 +128,7 @@ class RetrofitBuilder @Inject constructor(private val context: Context) {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(clientBuilder.build())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create(context))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
