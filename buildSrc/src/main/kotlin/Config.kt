@@ -1,18 +1,21 @@
 object Versions {
-    const val kotlin = "1.3.41"
-    internal const val androidPlugin = "3.4.1"
+    const val kotlin = "1.3.50"
+    internal const val androidPlugin = "3.5.0"
 
-    internal const val androidxCore = "1.0.1"
-    internal const val archCore = "2.0.1"
+    internal const val androidxCore = "1.1.0"
+    internal const val archCore = "2.1.0"
     internal const val room = "2.1.0-alpha03"
-    internal const val lifecycle = "2.2.0-alpha02"
-    internal const val lifecycleSaved = "1.0.0-alpha02"
-    internal const val support = "1.1.0-alpha06"
+    internal const val lifecycle = "2.2.0-alpha04"
+    internal const val lifecycleCommonJava8 = "2.1.0"
+    internal const val lifecycleSaved = "1.0.0-alpha04"
+    internal const val support = "1.1.0"
+    internal const val supportRecyclerView = "1.1.0-beta04"
+    internal const val supportRecyclerViewSelection = "1.1.0-alpha06"
     internal const val supportCardView = "1.0.0"
     internal const val supportLegacy = "1.0.0"
-    internal const val supportDesign = "1.1.0-alpha07"
+    internal const val supportDesign = "1.1.0-alpha10"
 
-    internal const val glide = "4.7.1"
+    internal const val glide = "4.9.0"
 
     internal const val koin = "1.0.1"
 
@@ -24,33 +27,33 @@ object Versions {
     internal const val atslRunner = "1.1.0-alpha1"
     internal const val atslRules = "1.1.0-alpha1"
     internal const val mockWebserver = "3.8.1"
-    internal const val robolectric = "3.4.2"
+    internal const val robolectric = "4.3"
 
-    internal const val retrofit = "2.3.0"
+    internal const val retrofit = "2.2.0"
     internal const val okLogging = "3.9.0"
 
     internal const val constraintLaout = "2.0.0-beta2"
 
-    internal const val rxJava = "2.2.2"
+    internal const val rxJava = "2.2.9"
     internal const val rxAndroid = "2.1.0"
 
     internal const val timber = "4.7.1"
 
     internal const val easyPermission = "3.0.0"
-    internal const val navigation = "2.1.0-alpha05"
+    internal const val navigation = "2.2.0-alpha02"
     internal const val navigationSafe = "2.1.0-alpha05"
 
     internal const val exo = "2.8.2"
-    internal const val coroutines = "1.1.1"
+    internal const val coroutines = "1.3.0"
 
     internal const val dagger = "2.23.2"
-    internal const val fragmentKtx = "1.2.0-alpha01"
+    internal const val fragmentKtx = "1.2.0-alpha03"
 
     internal const val googleService = "4.3.0"
     internal const val fabric = "1.31.0"
 
-    internal const val firebaseCore = "17.0.1"
-    internal const val firebaseAnalytics = "17.0.1"
+    internal const val firebaseCore = "17.2.0"
+    internal const val firebaseAnalytics = "17.2.0"
     internal const val crashAnalytics = "2.10.1"
 }
 
@@ -118,8 +121,8 @@ object Libs {
     // Support libs
     const val supportAnnotations = "androidx.annotation:annotation:${Versions.support}"
     const val supportAppCompat = "androidx.appcompat:appcompat:${Versions.support}"
-    const val supportRecyclerview = "androidx.recyclerview:recyclerview:${Versions.support}"
-    const val supportRecyclerviewSelection = "androidx.recyclerview:recyclerview-selection:${Versions.support}"
+    const val supportRecyclerview = "androidx.recyclerview:recyclerview:${Versions.supportRecyclerView}"
+    const val supportRecyclerviewSelection = "androidx.recyclerview:recyclerview-selection:${Versions.supportRecyclerViewSelection}"
     const val supportCardview = "androidx.cardview:cardview:${Versions.supportCardView}"
     const val supportDesign = "com.google.android.material:material:${Versions.supportDesign}"
     const val supportLegacyV4 = "androidx.legacy:legacy-support-v4:${Versions.supportLegacy}"
