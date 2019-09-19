@@ -10,7 +10,6 @@ import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
 import com.example.cleanarchitecture.binding.FragmentDataBindingComponent
 import com.example.cleanarchitecture.databinding.FragmentMainBinding
-import com.example.cleanarchitecture.extension.showSoftKeyboard
 import com.example.cleanarchitecture.util.autoCleared
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
@@ -41,11 +40,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         this.mainAdapter = adapter
 
         with(viewDataBinding) {
-            search.setOnClickListener {
-                showSoftKeyboard(activity?.currentFocus?.windowToken, false)
-                viewModel?.searchRepo()
-            }
-
             listRepo.adapter = mainAdapter
         }
     }

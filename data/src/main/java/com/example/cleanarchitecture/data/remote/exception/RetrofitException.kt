@@ -34,8 +34,6 @@ class RetrofitException(
             val error =
                 RetrofitException(message, url, response, Kind.HTTP_422_WITH_DATA, null, retrofit)
             error.deserializeServerError()
-            // HTTP CODE NONE 200 100 -> 200, 200 -> 300, , third party lib login: user, pass: pass wrong, user not exists
-            // DATA response {"code": 100011, "message": "Password invalid "} // code 10001 => action show alert, 10002 show inline with message
             return error
         }
 

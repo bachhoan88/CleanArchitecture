@@ -21,10 +21,10 @@ fun View.setVisible(visible: Boolean, invisible: Boolean? = false) {
 }
 
 fun ImageView.loadFromUrl(url: String) =
-        Glide.with(this.context.applicationContext)
-                .load(url)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(this)
+    Glide.with(this.context.applicationContext)
+        .load(url)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(this)
 
 fun View.hideKeyboard() {
     val inputMethod: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -45,6 +45,21 @@ inline fun View.afterMeasured(crossinline f: View.() -> Unit) {
             }
         }
     })
+}
+
+@BindingAdapter(value = ["singleClick", "hiddenKeyboard"], requireAll = false)
+fun View.singleClickListener(singleClick: (() -> Unit)? = null, hiddenKeyboard: Boolean? = false) {
+    setOnClickListener {
+        singleClick?.invoke()
+        isClickable = false
+        when (hiddenKeyboard) {
+            true -> context.showSoftKeyboard(false)
+        }
+
+        postDelayed({
+            isClickable = true
+        }, 300L)
+    }
 }
 
 @BindingAdapter("circleUrl")
