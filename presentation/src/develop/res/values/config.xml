@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="base_url">https://api123.github.com/</string>
+    <string name="base_url">https://api.github.com/</string>
 </resources>

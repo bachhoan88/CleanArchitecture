@@ -19,20 +19,18 @@ class MainViewModel @Inject constructor(
     val query = MutableLiveData<String>()
     val loading = MutableLiveData<Boolean>().apply { postValue(false) }
 
-    fun searchRepo() {
-        query.value?.let { input ->
-            if (input.isNotEmpty()) {
-                searchItemUseCase.createObservable(SearchItemUseCase.Params(query = input, pageNumber = 1))
-                    .compose(RxUtils.applySingleScheduler(loading))
-                    .doFinally { loading.value = false }
-                    .map { it.map { repoItemMapper.mapToPresentation(it) } }
-                    .subscribe({ data.value = it }, {
-                        Timber.e("Get repo error: $it")
-                        println("------- error: $it")
-                        setThrowable(it)
-                    })
-                    .add(this)
-            }
+    fun searchRepo() = when (query.value.isNullOrEmpty()) {
+        true -> Unit
+        false -> query.value?.let {
+            searchItemUseCase.createObservable(SearchItemUseCase.Params(query = it, pageNumber = 1))
+                .compose(RxUtils.applySingleScheduler(loading))
+                .doFinally { loading.value = false }
+                .map { it.map { repoItemMapper.mapToPresentation(it) } }
+                .subscribe({ data.value = it }, {
+                    Timber.e("Get repo error: $it")
+                    setThrowable(it)
+                })
+                .add(this)
         }
     }
 }
