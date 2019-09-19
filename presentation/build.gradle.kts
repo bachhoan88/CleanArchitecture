@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+
 plugins {
     id(GradlePlugins.android)
     kotlin(GradlePlugins.kotlinAndroid)
@@ -55,6 +57,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        val options = this as KotlinJvmOptions
+        options.jvmTarget = "1.8"
+    }
+
     dataBinding {
         isEnabled = true
     }
@@ -97,7 +104,7 @@ dependencies {
 
     // Binding
 //    kapt(Libs.glideCompiler)
-    kapt(Libs.lifecycleCompiler)
+    kapt(Libs.lifecycleJava8)
     kapt(Libs.bindingCompiler)
     kapt(Libs.daggerProcessor)
     kapt(Libs.daggerCompiler)

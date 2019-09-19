@@ -51,7 +51,7 @@ dependencies {
     implementation(Libs.rxJava)
 
     // room database
-    implementation(Libs.roomRuntime)
+    api(Libs.roomRuntime)
     implementation(Libs.roomRxjava2)
 
     // Lifecycle
@@ -77,7 +77,6 @@ dependencies {
 
     // extension
     kapt(Libs.roomCompiler)
-//    kapt(Libs.lifecycleCompiler)
 
     // Test
     testImplementation(Libs.junit)
