@@ -20,11 +20,10 @@ object ObserverTestUtils {
     }
 
     fun getJson(fileName: String): String {
-        val inputStream = javaClass.classLoader
-            .getResourceAsStream("api-response/$fileName")
+        val inputStream = javaClass.classLoader?.getResourceAsStream("api-response/$fileName")
 
         val out = StringBuilder()
-        inputStream.bufferedReader().useLines { lines ->
+        inputStream?.bufferedReader()?.useLines { lines ->
             lines.forEach { line ->
                 out.append(line)
             }
