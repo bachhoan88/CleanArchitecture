@@ -1,68 +1,123 @@
 package com.example.cleanarchitecture.data.remote.auth
 
 import android.content.Context
-import com.example.cleanarchitecture.data.Authentication
+import android.os.ConditionVariable
+import com.example.cleanarchitecture.data.*
+import com.example.cleanarchitecture.data.local.pref.AppPrefs
 import com.example.cleanarchitecture.data.model.Token
 import com.example.cleanarchitecture.data.remote.api.OAuthApi
-import com.example.cleanarchitecture.data.remote.builder.RetrofitBuilder
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.*
-import retrofit2.Call
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
-import java.lang.Exception
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class OauthRefreshAuthenticator @Inject constructor(private val context: Context) : Authenticator {
 
+    private val prefHelper by lazy { AppPrefs(context, Gson()) }
+    private val isRefreshing = AtomicBoolean(false)
+    private val lock = ConditionVariable(true)
+
     override fun authenticate(route: Route, response: Response): Request? {
-        Timber.d("Authentication error: ${response.code()} base on ${response.request()?.url()}")
-        return when (hasBearer(response)) {
+        Timber.d("Authentication error: ${response.code()} base on ${response.request().url()}")
+        when (hasBearer(response)) {
             false -> {
                 Timber.d("Not found bearer to refresh authentication")
-                null
+                callLogout()
+                return null
             }
             true -> {
                 Timber.d("Authentication expired or bad request")
-                refreshAuthentication(response.request(), retryCount(response) + 1)
+                val count = retryCount(response) + 1
+
+                if (isRefreshing.compareAndSet(false, true)) {
+                    lock.close()
+
+                    val tokenResponse = refreshAuthentication(count)
+                    val token = tokenResponse?.body()
+
+                    when (tokenResponse != null && tokenResponse.isSuccessful && tokenResponse.code() == 200 && token != null) {
+                        true -> {
+                            prefHelper.setToken(token)
+
+                            lock.open()
+                            isRefreshing.set(false)
+
+                            return reCallRequest(response.request(), count, token)
+                        }
+
+                        else -> {
+                            lock.close()
+                            callLogout()
+                        }
+                    }
+                } else {
+
+                    lock.block(HttpClient.CONNECTION_TIME_OUT_MLS)
+                    prefHelper.getToken()?.let {
+                        return reCallRequest(response.request(), count, it)
+                    }
+                }
+
+                return null
             }
         }
     }
 
     @Synchronized
-    private fun refreshAuthentication(request: Request?, retryCount: Int): Request? {
+    private fun refreshAuthentication(retryCount: Int): retrofit2.Response<Token>? {
         if (retryCount > Authentication.MAX_RETRY) {
             Timber.d("Retry count maximum")
             return null
         }
 
-        val authApi = RetrofitBuilder(context).build().create(OAuthApi::class.java)
-        authApi.refreshToken("refresh_token", "mobile").enqueue(object : retrofit2.Callback<Token> {
-            override fun onFailure(call: Call<Token>, t: Throwable) {
-                Timber.e("Refresh token failed, by $t")
-            }
+        val refreshToken = prefHelper.getToken()?.token
+        if (refreshToken.isNullOrBlank()) {
+            return null
+        }
 
-            override fun onResponse(call: Call<Token>, response: retrofit2.Response<Token>) {
-                Timber.d("Refresh access token successful!")
-                when (response.isSuccessful) {
-                    true -> response.body()?.let { reCallRequest(request, retryCount, it) }
-                }
-            }
-        })
+        val clientBuilder = OkHttpClient.Builder().apply {
+            connectTimeout(HttpClient.CONNECT_TIMEOUT, TimeUnit.SECONDS)
+            writeTimeout(HttpClient.READ_TIMEOUT, TimeUnit.SECONDS)
+            readTimeout(HttpClient.WRITE_TIMEOUT, TimeUnit.SECONDS)
 
-        return null
+            if (BuildConfig.DEBUG) {
+                addInterceptor(HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                })
+            }
+        }
+
+        val gBuilder = GsonBuilder()
+            .setLenient()
+            .disableHtmlEscaping()
+            .create()
+        val factory = GsonConverterFactory.create(gBuilder)
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(context.getString(R.string.base_url))
+            .client(clientBuilder.build())
+            .addConverterFactory(factory)
+            .build()
+
+        val authApi = retrofit.create(OAuthApi::class.java)
+        return authApi.refreshToken(refreshToken).execute()
     }
+
+    private fun callLogout() { }
 
     private fun hasBearer(response: Response): Boolean {
         return response.request()?.header(AUTH)?.startsWith(BEARER) ?: false
     }
 
-    private fun retryCount(response: Response): Int {
-        val retry = response.request()?.header(RETRY)
-        return try {
-            retry?.toIntOrNull() ?: 0
-        } catch (exception: Exception) {
-            0
-        }
-    }
+    private fun retryCount(response: Response) = response.request()?.header(RETRY)?.toIntOrNull() ?: 0
 
     private fun reCallRequest(request: Request?, retryCount: Int, token: Token): Request? {
         return request?.newBuilder()
