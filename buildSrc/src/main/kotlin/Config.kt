@@ -1,5 +1,5 @@
 object Versions {
-    const val kotlin = "1.3.50"
+    const val kotlin = "1.3.61"
     internal const val androidPlugin = "3.5.0"
 
     internal const val androidxCore = "1.1.0"

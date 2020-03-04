@@ -130,7 +130,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
                     title = dialog.title,
                     message = dialog.message,
                     positiveMessage = dialog.positiveMessage,
-                    negativeMessage = dialog.positiveMessage,
+                    negativeMessage = dialog.negativeMessage,
                     positiveAction = { positiveAction(dialog.positiveAction, dialog.positiveObject) },
                     negativeAction = { negativeAction(dialog.negativeAction, dialog.negativeObject) }
                 )

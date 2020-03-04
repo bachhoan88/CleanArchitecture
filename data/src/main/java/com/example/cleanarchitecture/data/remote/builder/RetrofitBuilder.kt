@@ -28,6 +28,9 @@ class RetrofitBuilder @Inject constructor(private val context: Context) {
     private var authenticator: Authenticator? = null
     private var baseUrl: String = context.getString(R.string.base_url)
 
+    @Inject
+    lateinit var oauthRefreshAuthenticator: OauthRefreshAuthenticator
+
     /**
      * Customize time out
      * @param connectionTimeout timeout for connection OK Http client
@@ -116,7 +119,7 @@ class RetrofitBuilder @Inject constructor(private val context: Context) {
 
             val auth: Authenticator? = when {
                 authenticator != null -> authenticator
-                isSupportAuthorization -> OauthRefreshAuthenticator(context)
+                isSupportAuthorization -> oauthRefreshAuthenticator
                 else -> null
             }
 
