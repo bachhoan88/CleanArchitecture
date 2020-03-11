@@ -51,11 +51,12 @@ class ItemRepositoryImplTest {
 
     @Test
     fun searchReturnNull() {
-        val query = anyString()
-        val page = anyInt()
-        `when`(itemApi.searchRepos(query, page)).thenReturn(Single.error(Throwable("error")))
+        val query = "query"
+        val page = 1
+        val errorMessage = "Error"
+        `when`(itemApi.searchRepos(query, page)).thenReturn(Single.error(Throwable(errorMessage)))
 
         val test = itemRepositoryImpl.searchItems(query, page).test()
-        test.assertNotComplete()
+        test.assertError { it.message == errorMessage }
     }
 }
