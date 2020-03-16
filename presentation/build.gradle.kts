@@ -8,7 +8,9 @@ plugins {
 apply {
     plugin(GradlePlugins.navigationSafeKotlin)
     plugin(GradlePlugins.playService)
+    plugin(GradlePlugins.fabric)
     from("../ktlint.gradle")
+    from("../googleServices.gradle")
     from("jacoco.gradle")
 }
 
@@ -152,5 +154,7 @@ dependencies {
     // Firebase analytics
     implementation(Libs.firebaseCore)
     implementation(Libs.firebaseAnalytics)
-    implementation(Libs.crashAnalytics)
+    implementation(Libs.crashAnalytics) {
+        isTransitive = true
+    }
 }
