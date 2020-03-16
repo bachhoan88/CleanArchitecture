@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-
 plugins {
     id(GradlePlugins.android)
     kotlin(GradlePlugins.kotlinAndroid)
@@ -9,7 +7,6 @@ plugins {
 
 apply {
     plugin(GradlePlugins.navigationSafeKotlin)
-    plugin(GradlePlugins.fabric)
     plugin(GradlePlugins.playService)
     from("../ktlint.gradle")
     from("jacoco.gradle")
@@ -58,8 +55,7 @@ android {
     }
 
     kotlinOptions {
-        val options = this as KotlinJvmOptions
-        options.jvmTarget = "1.8"
+        jvmTarget = "1.8"
     }
 
     dataBinding {
@@ -104,8 +100,8 @@ dependencies {
 
     // Binding
 //    kapt(Libs.glideCompiler)
-    kapt(Libs.lifecycleJava8)
-    kapt(Libs.bindingCompiler)
+//    kapt(Libs.lifecycleJava8)
+//    kapt(Libs.bindingCompiler)
     kapt(Libs.daggerProcessor)
     kapt(Libs.daggerCompiler)
 
@@ -153,7 +149,7 @@ dependencies {
     testImplementation(Libs.mockitoWebServer)
     testImplementation(Libs.robolectric)
 
-    // Firebase analytics & fabric
+    // Firebase analytics
     implementation(Libs.firebaseCore)
     implementation(Libs.firebaseAnalytics)
     implementation(Libs.crashAnalytics)

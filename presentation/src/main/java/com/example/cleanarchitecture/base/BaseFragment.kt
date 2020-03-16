@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.Size
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.observe
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -101,17 +102,17 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     @SuppressLint("ShowToast")
     private fun subscriberException() {
         viewModel.run {
-            snackBarMessage.observe(viewLifecycleOwner, Observer { message ->
+            snackBarMessage.observe(viewLifecycleOwner) { message ->
                 view?.let { snackBar = Snackbar.make(it, message, Snackbar.LENGTH_SHORT) }
                 snackBar?.show()
-            })
+            }
 
-            toastMessage.observe(viewLifecycleOwner, Observer { message ->
+            toastMessage.observe(viewLifecycleOwner) { message ->
                 context?.let { toast = Toast.makeText(it, message, Toast.LENGTH_SHORT) }
                 toast?.show()
-            })
+            }
 
-            inlineException.observe(viewLifecycleOwner, Observer { tags ->
+            inlineException.observe(viewLifecycleOwner) { tags ->
                 tags.forEach { tag ->
                     val currentView = view?.findViewWithTag<TextView>(tag.name)
                     currentView?.run {
@@ -119,13 +120,13 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
                         setVisible(true)
                     }
                 }
-            })
+            }
 
-            alertException.observe(viewLifecycleOwner, Observer { pair ->
+            alertException.observe(viewLifecycleOwner) { pair ->
                 context?.showDialog(title = pair.first, message = pair.second, positiveMessage = getString(android.R.string.ok))
-            })
+            }
 
-            dialogException.observe(viewLifecycleOwner, Observer { dialog ->
+            dialogException.observe(viewLifecycleOwner) { dialog ->
                 context?.showDialog(
                     title = dialog.title,
                     message = dialog.message,
@@ -134,7 +135,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
                     positiveAction = { positiveAction(dialog.positiveAction, dialog.positiveObject) },
                     negativeAction = { negativeAction(dialog.negativeAction, dialog.negativeObject) }
                 )
-            })
+            }
 
             redirectException.observe(viewLifecycleOwner, Observer { redirect ->
                 redirectAction(redirect.redirect, redirect.redirectObject)

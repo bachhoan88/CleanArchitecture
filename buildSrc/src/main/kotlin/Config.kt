@@ -1,6 +1,6 @@
 object Versions {
-    const val kotlin = "1.3.61"
-    internal const val androidPlugin = "3.5.0"
+    const val kotlin = "1.3.70"
+    internal const val androidPlugin = "3.5.3"
 
     internal const val androidxCore = "1.1.0"
     internal const val archCore = "2.1.0"
@@ -16,8 +16,6 @@ object Versions {
     internal const val supportDesign = "1.1.0-alpha10"
 
     internal const val glide = "4.9.0"
-
-    internal const val koin = "1.0.1"
 
     internal const val junit = "4.12"
     internal const val espresso = "3.1.0-alpha4"
@@ -46,8 +44,8 @@ object Versions {
     internal const val exo = "2.8.2"
     internal const val coroutines = "1.3.0"
 
-    internal const val dagger = "2.23.2"
-    internal const val fragmentKtx = "1.2.0-alpha03"
+    internal const val dagger = "2.26"
+    internal const val fragmentKtx = "1.3.0-alpha01"
 
     internal const val googleService = "4.3.0"
     internal const val fabric = "1.31.0"
@@ -208,14 +206,6 @@ object Libs {
     //
     const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
-
-    // KOIN
-    const val koinCore = "org.koin:koin-core:${Versions.koin}"
-    const val koinViewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
-    const val koinScope = "org.koin:koin-androidx-scope:${Versions.koin}"
-    const val koinJava = "org.koin:koin-java:${Versions.koin}"
-
-    const val koinTest = "org.koin:koin-test:${Versions.koin}"
 
     // Dagger 2
     const val daggerCore = "com.google.dagger:dagger:${Versions.dagger}"

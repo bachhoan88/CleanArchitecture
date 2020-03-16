@@ -26,6 +26,6 @@ class UserRepositoryImplTest {
     fun signSuccess() {
         val username = "hoanbn88"
         val pass = "abc123"
-        `when`(userApiMock.signin(username, pass)).thenReturn(Completable.error(Throwable("Invalid password")))
+        `when`(userApiMock.signin(username, pass)).thenReturn(Completable.complete())
     }
 }
