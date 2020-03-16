@@ -100,8 +100,8 @@ dependencies {
 
     // Binding
 //    kapt(Libs.glideCompiler)
-    kapt(Libs.lifecycleJava8)
-    kapt(Libs.bindingCompiler)
+//    kapt(Libs.lifecycleJava8)
+//    kapt(Libs.bindingCompiler)
     kapt(Libs.daggerProcessor)
     kapt(Libs.daggerCompiler)
 
