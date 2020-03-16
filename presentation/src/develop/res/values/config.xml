@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="base_url">https://api.github.com/</string>
+    <string name="com.crashlytics.android.build_id">RANDOM_UUID</string>
 </resources>

@@ -154,5 +154,7 @@ dependencies {
     // Firebase analytics
     implementation(Libs.firebaseCore)
     implementation(Libs.firebaseAnalytics)
-    implementation(Libs.crashAnalytics)
+    implementation(Libs.crashAnalytics) {
+        isTransitive = true
+    }
 }
