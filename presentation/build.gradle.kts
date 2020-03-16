@@ -8,7 +8,9 @@ plugins {
 apply {
     plugin(GradlePlugins.navigationSafeKotlin)
     plugin(GradlePlugins.playService)
+    plugin(GradlePlugins.fabric)
     from("../ktlint.gradle")
+    from("../googleServices.gradle")
     from("jacoco.gradle")
 }
 

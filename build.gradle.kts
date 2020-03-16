@@ -4,6 +4,9 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url = uri(Url.fabric)
+        }
     }
 
     dependencies {
@@ -11,6 +14,7 @@ buildscript {
         classpath(BuildPlugins.androidPlugin)
         classpath(BuildPlugins.navigationSafe)
         classpath(BuildPlugins.googleService)
+        classpath(BuildPlugins.fabric)
     }
 }
 
@@ -20,6 +24,9 @@ allprojects {
         jcenter()
         maven {
             url = URI.create(Url.jitpack)
+        }
+        maven {
+            url = uri(Url.fabric)
         }
     }
 }

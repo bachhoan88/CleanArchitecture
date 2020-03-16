@@ -18,7 +18,8 @@ class MainApplication : DaggerApplication() {
         val crashlytics = CrashlyticsCore.Builder()
             .disabled(BuildConfig.DEBUG)
             .build()
-        Fabric.with(this, Crashlytics.Builder().core(crashlytics).build())
+        Fabric.with(this, Crashlytics.Builder()
+            .core(crashlytics).build())
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
