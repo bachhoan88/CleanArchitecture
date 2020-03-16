@@ -45,7 +45,7 @@ object Versions {
     internal const val coroutines = "1.3.0"
 
     internal const val dagger = "2.26"
-    internal const val fragmentKtx = "1.2.0-alpha03"
+    internal const val fragmentKtx = "1.3.0-alpha01"
 
     internal const val googleService = "4.3.0"
     internal const val fabric = "1.31.0"
