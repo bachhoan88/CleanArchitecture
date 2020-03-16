@@ -7,6 +7,7 @@ import com.example.cleanarchitecture.domain.model.Dialog
 import com.example.cleanarchitecture.domain.model.Redirect
 import com.example.cleanarchitecture.domain.model.Tag
 import com.example.cleanarchitecture.domain.usecase.UseCase
+import com.example.cleanarchitecture.util.SingleLiveData
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -15,12 +16,12 @@ abstract class BaseViewModel constructor(
 ) : ViewModel() {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    val snackBarMessage = MutableLiveData<String>()
-    val toastMessage = MutableLiveData<String>()
-    val inlineException = MutableLiveData<List<Tag>>()
-    val alertException = MutableLiveData<Pair<String?, String>>()
-    val dialogException = MutableLiveData<Dialog>()
-    val redirectException = MutableLiveData<Redirect>()
+    val snackBarMessage = SingleLiveData<String>()
+    val toastMessage = SingleLiveData<String>()
+    val inlineException = SingleLiveData<List<Tag>>()
+    val alertException = SingleLiveData<Pair<String?, String>>()
+    val dialogException = SingleLiveData<Dialog>()
+    val redirectException = SingleLiveData<Redirect>()
 
     fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
