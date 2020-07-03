@@ -40,6 +40,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    lintOptions {
+        disable("TypographyFractions", "TypographyQuotes")
+    }
 }
 
 dependencies {

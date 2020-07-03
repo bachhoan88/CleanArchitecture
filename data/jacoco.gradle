@@ -4,8 +4,8 @@ jacoco {
 }
 
 task fullCoverageReport(type: JacocoReport) {
-    dependsOn 'createDebugCoverageReport'
-    dependsOn 'testDebugUnitTest'
+    dependsOn 'createDevelopDebugCoverageReport'
+    dependsOn 'testDevelopDebugUnitTest'
     reports {
         xml.enabled = true
         html.enabled = true
@@ -31,7 +31,7 @@ task fullCoverageReport(type: JacocoReport) {
 }
 
 project.tasks.whenTaskAdded {
-    if (it.name == "testReleaseUnitTest") {
+    if (it.name == "testProductionReleaseUnitTest") {
         it.enabled = false
     }
 }
