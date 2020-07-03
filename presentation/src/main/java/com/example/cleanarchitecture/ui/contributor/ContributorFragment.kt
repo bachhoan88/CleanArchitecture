@@ -35,6 +35,7 @@ class ContributorFragment : BaseFragment<FragmentContributorBinding, Contributor
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ContributorAdapter(bindingComponent) { contribute ->
+            println(contribute)
         }
         this.contributorAdapter = adapter
 
