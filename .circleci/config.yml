@@ -33,16 +33,16 @@ jobs:
 
       - run:
           name: Run Unit test
-          command: ./gradlew lint test
+          command: ./gradlew fullCoverageReport
 
       - run:
           name: Upload coverage report to CodeCov
           command: bash <(curl -s https://codecov.io/bash)
 
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: presentation/build/reports
+          path: presentation/build/coverage-report
           destination: reports
 
       - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: presentation/build/reports
+          path: presentation/build/coverage-report
       # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
