@@ -10,10 +10,10 @@ task fullCoverageReport(type: JacocoReport) {
     )
     reports {
         csv.enabled = false
-        xml.enabled = false
+        xml.enabled = true
         html {
             enabled = true
-            destination(file("${buildDir}/coverage-report"))
+            destination(file("${buildDir}/reports/coverage/develop/debug"))
         }
     }
 
