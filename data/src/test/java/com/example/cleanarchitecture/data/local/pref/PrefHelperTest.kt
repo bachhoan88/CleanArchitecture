@@ -16,7 +16,7 @@ class PrefHelperTest {
 
     @Before
     fun setup() {
-        prefHelper = AppPrefs(RuntimeEnvironment.application, Gson())
+        prefHelper = AppPrefs(RuntimeEnvironment.systemContext, Gson())
     }
 
     @Test

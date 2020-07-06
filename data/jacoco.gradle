@@ -1,6 +1,6 @@
 apply plugin: 'jacoco'
 jacoco {
-    toolVersion = "0.8.2"
+    toolVersion = "0.8.5"
 }
 
 task fullCoverageReport(type: JacocoReport) {
@@ -19,7 +19,7 @@ task fullCoverageReport(type: JacocoReport) {
                       '**/*_*Factory.class',
                       '**/*ComponentImpl.class',
                       '**/*SubComponentBuilder.class']
-    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
     def mainSrc = "${project.projectDir}/src/main/java"
 
     sourceDirectories.setFrom(files([mainSrc]))

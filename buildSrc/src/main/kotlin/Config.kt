@@ -1,6 +1,6 @@
 object Versions {
     const val kotlin = "1.3.70"
-    internal const val androidPlugin = "3.5.3"
+    internal const val androidPlugin = "4.0.0"
 
     internal const val androidxCore = "1.1.0"
     internal const val archCore = "2.1.0"
@@ -30,7 +30,7 @@ object Versions {
     internal const val retrofit = "2.2.0"
     internal const val okLogging = "3.9.0"
 
-    internal const val constraintLaout = "2.0.0-beta2"
+    internal const val constraintLaout = "2.0.0-beta4"
 
     internal const val rxJava = "2.2.9"
     internal const val rxAndroid = "2.1.0"
@@ -44,7 +44,7 @@ object Versions {
     internal const val exo = "2.8.2"
     internal const val coroutines = "1.3.0"
 
-    internal const val dagger = "2.26"
+    internal const val dagger = "2.28.1"
     internal const val fragmentKtx = "1.3.0-alpha01"
 
     internal const val googleService = "4.3.0"

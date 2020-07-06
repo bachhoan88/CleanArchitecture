@@ -1,6 +1,5 @@
 package com.example.cleanarchitecture.base
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.cleanarchitecture.domain.exception.*
 import com.example.cleanarchitecture.domain.model.Dialog
