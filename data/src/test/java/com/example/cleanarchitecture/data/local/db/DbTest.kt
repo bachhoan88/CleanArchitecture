@@ -12,7 +12,7 @@ abstract class DbTest {
 
     @Before
     fun setup() {
-        appDatabase = Room.inMemoryDatabaseBuilder(RuntimeEnvironment.application, AppDatabase::class.java)
+        appDatabase = Room.inMemoryDatabaseBuilder(RuntimeEnvironment.systemContext, AppDatabase::class.java)
                 .allowMainThreadQueries()
                 .build()
     }
