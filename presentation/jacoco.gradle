@@ -5,12 +5,12 @@ jacoco {
 
 task fullCoverageReport(type: JacocoReport) {
     dependsOn(
-            ":presentation:testDevelopDebugUnitTest",
-            ":presentation:createDevelopDebugCoverageReport"
+            ":presentation:testDevelopDebugUnitTest"
+//            ":presentation:createDevelopDebugCoverageReport"
     )
     reports {
         csv.enabled = false
-        xml.enabled = false
+        xml.enabled = true
         html {
             enabled = true
             destination(file("${buildDir}/coverage-report"))
