@@ -37,7 +37,7 @@ jobs:
 
       - run:
           name: Upload coverage report to CodeCov
-          command: bash <(curl -s --retry 10 https://codecov.io/bash)
+          command: bash <(curl -s --retry 10 https://codecov.io/bash) -f "${buildDir}/reports/jacoco/fullCoverageReport/fullCoverageReport.xml"
 
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: presentation/build/coverage-report
