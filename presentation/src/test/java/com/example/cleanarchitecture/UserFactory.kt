@@ -2,6 +2,7 @@ package com.example.cleanarchitecture
 
 import com.example.cleanarchitecture.data.model.ItemEntity
 import com.example.cleanarchitecture.data.model.OwnerEntity
+import com.example.cleanarchitecture.domain.model.Contributor
 import com.example.cleanarchitecture.domain.model.Item
 import com.example.cleanarchitecture.domain.model.Owner
 import com.example.cleanarchitecture.domain.model.User
@@ -40,5 +41,11 @@ fun createItem() = Item(
         description = "ha nam",
         url = "",
         stars = 1,
-        owner = Owner(id = 1, login = null, avatar = null)
+        owner = Owner(id = 1, login = "abc", avatar = null)
+)
+
+fun createContributor() = Contributor(
+        login = "abc",
+        contributions = 1,
+        avatarUrl = "abc"
 )

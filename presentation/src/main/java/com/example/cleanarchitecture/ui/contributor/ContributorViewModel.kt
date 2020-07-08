@@ -1,5 +1,6 @@
 package com.example.cleanarchitecture.ui.contributor
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -40,5 +41,10 @@ class ContributorViewModel @Inject constructor(
         }
 
         contributions
+    }
+
+    @VisibleForTesting
+    fun clear() {
+        super.onCleared()
     }
 }
