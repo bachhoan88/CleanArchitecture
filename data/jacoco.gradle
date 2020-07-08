@@ -14,14 +14,20 @@ task test(type: JacocoReport) {
         }
     }
 
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
-                      '**/*Test*.*', 'android/**/*.*',
-                      '**/*_MembersInjector.class',
-                      '**/Dagger*Component.class',
-                      '**/Dagger*Component$Builder.class',
-                      '**/*_*Factory.class',
-                      '**/*ComponentImpl.class',
-                      '**/*SubComponentBuilder.class']
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*',
+            '**/*_MembersInjector.class',
+            '**/Dagger*Component.class',
+            '**/Dagger*Component$Builder.class',
+            '**/*_*Factory.class',
+            '**/*ComponentImpl.class',
+            '**/*SubComponentBuilder.class'
+    ]
     def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
     def mainSrc = "${project.projectDir}/src/main/java"
 

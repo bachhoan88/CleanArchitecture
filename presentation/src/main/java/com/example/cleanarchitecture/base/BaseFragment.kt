@@ -21,7 +21,6 @@ import com.example.cleanarchitecture.domain.annotation.Action
 import com.example.cleanarchitecture.domain.annotation.Redirect
 import com.example.cleanarchitecture.extension.setVisible
 import com.example.cleanarchitecture.extension.showDialog
-import com.example.cleanarchitecture.util.Permission
 import com.example.cleanarchitecture.util.autoCleared
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
@@ -88,7 +87,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
     }
 
     internal fun requestPermission(rationale: String, @Size(min = 1) vararg permissions: String) {
-        Permission.requestPermissions(this, rationale, PERMISSION_REQUEST_CODE, permissions)
+        EasyPermissions.requestPermissions(this, rationale, PERMISSION_REQUEST_CODE, *permissions.toList().toTypedArray())
     }
 
     @AfterPermissionGranted(PERMISSION_REQUEST_CODE)
