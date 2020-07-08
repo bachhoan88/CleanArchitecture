@@ -7,7 +7,6 @@ import io.reactivex.schedulers.Schedulers
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 import org.mockito.MockitoAnnotations
 
 open class BaseViewModelTest {
@@ -24,7 +23,5 @@ open class BaseViewModelTest {
     }
 
     @After
-    open fun clear() {
-
-    }
+    open fun clear() {}
 }
