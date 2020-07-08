@@ -1,7 +1,6 @@
 package com.example.cleanarchitecture.ui.main
 
 import androidx.lifecycle.Observer
-import com.example.cleanarchitecture.base.BaseViewModel
 import com.example.cleanarchitecture.createItem
 import com.example.cleanarchitecture.domain.annotation.Redirect.Companion.OPEN_HOME_SCREEN
 import com.example.cleanarchitecture.domain.exception.*
@@ -16,13 +15,11 @@ import com.example.cleanarchitecture.model.RepoItem
 import com.example.cleanarchitecture.model.RepoItemMapper
 import com.example.cleanarchitecture.ui.BaseViewModelTest
 import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
 import org.hamcrest.Matchers.nullValue
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThat
 import org.junit.Test
-import org.mockito.BDDMockito.*
-import org.mockito.Matchers
+import org.mockito.BDDMockito.`when`
 import org.mockito.Mock
 
 /**
