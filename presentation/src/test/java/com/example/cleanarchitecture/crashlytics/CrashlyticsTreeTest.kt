@@ -10,6 +10,5 @@ class CrashlyticsTreeTest {
     fun testDebug() {
         val throwable = Throwable("abc")
         Timber.d(throwable)
-
     }
 }
