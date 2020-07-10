@@ -6,6 +6,9 @@ import com.example.cleanarchitecture.domain.model.Contributor
 import com.example.cleanarchitecture.domain.model.Item
 import com.example.cleanarchitecture.domain.model.Owner
 import com.example.cleanarchitecture.domain.model.User
+import com.example.cleanarchitecture.model.ContributorItem
+import com.example.cleanarchitecture.model.OwnerItem
+import com.example.cleanarchitecture.model.RepoItem
 import com.example.cleanarchitecture.model.UserItem
 
 fun createUserItem(): UserItem = UserItem("1",
@@ -24,7 +27,7 @@ fun createUser(): User = User(
         "Thanh Liem - Ha Nam"
 )
 
-fun createRepoItem() = ItemEntity(
+fun createRepoEntity() = ItemEntity(
         id = 1,
         name = "Bach",
         fullName = "Bach Hoan",
@@ -32,6 +35,16 @@ fun createRepoItem() = ItemEntity(
         url = "",
         stars = 1,
         ownerEntity = OwnerEntity(id = 1, login = null, avatar = null)
+)
+
+fun createRepoItem() = RepoItem(
+        id = 1,
+        name = "Bach",
+        fullName = "Bach Hoan",
+        description = "framgia",
+        url = "",
+        stars = "5",
+        ownerItem = OwnerItem(id = 1, login = null, avatar = null)
 )
 
 fun createItem() = Item(
@@ -44,7 +57,17 @@ fun createItem() = Item(
         owner = Owner(id = 1, login = "abc", avatar = null)
 )
 
+fun createOwnerItem() = OwnerItem(id = 1, login = null, avatar = null)
+
+fun createOwner() = Owner(id = 1, login = null, avatar = null)
+
 fun createContributor() = Contributor(
+        login = "abc",
+        contributions = 1,
+        avatarUrl = "abc"
+)
+
+fun createContributorItem() = ContributorItem(
         login = "abc",
         contributions = 1,
         avatarUrl = "abc"
