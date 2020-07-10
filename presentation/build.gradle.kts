@@ -138,9 +138,9 @@ dependencies {
     // logging
     implementation(Libs.timber)
 
-//    androidTestImplementation (Libs.mockitoCore) {
-//        exclude(group = "net.bytebuddy")
-//    }
+    androidTestImplementation (Libs.mockitoCore) {
+        exclude(group = "net.bytebuddy")
+    }
 
     // Dependencies for local unit tests
     testImplementation(Libs.junit)
@@ -151,6 +151,14 @@ dependencies {
     testImplementation(Libs.kotlinTest)
     testImplementation(Libs.mockitoWebServer)
     testImplementation(Libs.robolectric)
+
+    // android test
+    androidTestImplementation(Libs.archTesting)
+    androidTestImplementation(Libs.espressoContrib)
+    androidTestImplementation(Libs.espressoCore)
+    androidTestImplementation(Libs.jUnitExtension)
+    androidTestImplementation(Libs.espressoIntents)
+    androidTestImplementation(Libs.uiautomator)
 
     // Firebase analytics
     implementation(Libs.firebaseCore)
