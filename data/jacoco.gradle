@@ -3,30 +3,39 @@ jacoco {
     toolVersion = "0.8.5"
 }
 
-task fullCoverageReport(type: JacocoReport) {
+task test(type: JacocoReport) {
     dependsOn 'createDebugCoverageReport'
     dependsOn 'testDebugUnitTest'
     reports {
         xml.enabled = true
-        html.enabled = true
+        html {
+            enabled = true
+            destination(file("${buildDir}/code-coverage"))
+        }
     }
 
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
-                      '**/*Test*.*', 'android/**/*.*',
-                      '**/*_MembersInjector.class',
-                      '**/Dagger*Component.class',
-                      '**/Dagger*Component$Builder.class',
-                      '**/*_*Factory.class',
-                      '**/*ComponentImpl.class',
-                      '**/*SubComponentBuilder.class']
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*',
+            '**/*_MembersInjector.class',
+            '**/Dagger*Component.class',
+            '**/Dagger*Component$Builder.class',
+            '**/*_*Factory.class',
+            '**/*ComponentImpl.class',
+            '**/*SubComponentBuilder.class'
+    ]
     def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
     def mainSrc = "${project.projectDir}/src/main/java"
 
     sourceDirectories.setFrom(files([mainSrc]))
     classDirectories.setFrom(files([debugTree]))
     executionData.setFrom(fileTree(dir: "$buildDir", includes: [
-            "jacoco/testDebugUnitTest.exec",
-            "outputs/code-coverage/connected/*coverage.ec"
+            "${project.projectDir}/presentation/build/jacoco/testDebugUnitTest.exec",
+            "${project.projectDir}/presentation/build/outputs/code-coverage/connected/*coverage.ec"
     ]))
 }
 

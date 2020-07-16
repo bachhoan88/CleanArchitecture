@@ -4,45 +4,75 @@ references:
   cache_key: &cache_key
     key: jars-{{ checksum "build.gradle.kts" }}-{{ checksum  "presentation/build.gradle.kts" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
-jobs:
-  build:
-    working_directory: ~/code
-    docker:
+config_android: &config_android
+  working_directory: ~/code
+  docker:
       - image: circleci/android:api-28
 
-    environment:
-      JVM_OPTS: -Xmx3200m
+  environment:
+    JVM_OPTS: -Xmx3200m
 
-    steps:
-      - checkout
-      - restore_cache:
-          <<: *cache_key
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
+build_test: &build_test
+  <<: *config_android
+  steps:
+    - checkout
+    - restore_cache:
+        <<: *cache_key
+    - run:
+        name: Download Dependencies
+        command: ./gradlew androidDependencies
 
-      - save_cache:
-          <<: *cache_key
-          paths:
-            - ~/.gradle/caches
-            - ~/.gradle/wrapper
+    - save_cache:
+        <<: *cache_key
+        paths:
+          - ~/.gradle/caches
+          - ~/.gradle/wrapper
 
-      - run:
-          name: Run Code style
-          command: ./gradlew ktlint
+    - run:
+        name: Run Code style
+        command: ./gradlew ktlint
 
-      - run:
-          name: Run Unit test
-          command: ./gradlew fullCoverageReport
+    - run:
+        name: Run Unit test
+        command: ./gradlew fullCoverageReport
 
-      - run:
-          name: Upload coverage report to CodeCov
-          command: bash <(curl -s https://codecov.io/bash)
+    - run:
+        name: Upload coverage report to CodeCov
+        command: bash <(curl -s --retry 10 https://codecov.io/bash) -f "presentation/build/reports/jacoco/fullCoverageReport/fullCoverageReport.xml"
 
-      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: presentation/build/coverage-report
-          destination: reports
+deploy_firebase: &deploy_firebase
+  <<: *config_android
+  steps:
+    - checkout
+    - run:
+        name: Build debug
+        command: ./gradlew :presentation:assembleDevelopDebug
 
-      - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: presentation/build/coverage-report
-      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+    - run:
+        name: Install Firebase CLI
+        command: |
+          curl -sL https://firebase.tools | bash
+
+    - run:
+        name: upload artifact to Firebase App Distribution
+        command: firebase appdistribution:distribute presentation/build/outputs/apk/develop/debug/presentation-develop-debug.apk --app $FIREBASE_APP_ID --token $FIREBASE_TOKEN --release-notes "Bug fixes and improvements"
+
+jobs:
+  build_test:
+    <<: *build_test
+
+  deploy_firebase:
+    <<: *deploy_firebase
+
+
+workflows:
+  version: 2
+  build_test_and_deploy:
+    jobs:
+      - build_test
+      - deploy_firebase:
+          requires:
+            - build_test
+          filters:
+            branches:
+              only: master

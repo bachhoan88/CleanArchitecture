@@ -1,5 +1,6 @@
 package com.example.cleanarchitecture.ui.main
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import com.example.cleanarchitecture.base.BaseViewModel
 import com.example.cleanarchitecture.domain.usecase.item.SearchItemUseCase
@@ -32,5 +33,10 @@ class MainViewModel @Inject constructor(
                 })
                 .add(this)
         }
+    }
+
+    @VisibleForTesting
+    fun clear() {
+        super.onCleared()
     }
 }
