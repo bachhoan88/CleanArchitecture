@@ -1,0 +1,27 @@
+name: Master Release CI
+
+on:
+  push:
+    branches:
+      - 'androidx'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Build debug
+          command: ./gradlew :presentation:assembleDevelopDebug
+
+      - name: upload artifact to Firebase App Distribution
+          uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+          with:
+            appId: ${{ secrets.FIREBASE_APP_ID }}
+            token: ${{ secrets.FIREBASE_TOKEN }}
+            groups: testers
+            file: presentation/build/outputs/apk/develop/debug/presentation-develop-debug.apk

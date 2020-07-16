@@ -1,0 +1,17 @@
+default_platform(:android)
+
+platform :android do
+      desc "My awesome app"
+      lane :distribute do
+          build_android_app(...) # build_android_app is a built-in fastlane action.
+
+          firebase_app_distribution(
+              app: "$FIREBASE_APP_ID",
+              token: "$FIREBASE_TOKEN",
+              testers: "tester1@company.com, tester2@company.com",
+              release_notes: "Lots of amazing new features to test out!",
+              firebase_cli_path: "/absolute/path/to/firebase/cli/binary"
+          )
+
+      end
+  end
