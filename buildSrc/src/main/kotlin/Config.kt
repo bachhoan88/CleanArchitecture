@@ -18,7 +18,9 @@ object Versions {
     internal const val glide = "4.9.0"
 
     internal const val junit = "4.12"
-    internal const val espresso = "3.1.0-alpha4"
+    internal const val jUnitExtension = "1.1.1"
+    internal const val uiautomator = "2.2.0"
+    internal const val espresso = "3.2.0"
     internal const val mockito = "2.7.19"
     internal const val mockitoAll = "1.10.19"
     internal const val hamcrest = "1.3"
@@ -191,6 +193,8 @@ object Libs {
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val espressoContrib = "androidx.test.espresso:espresso-contrib:${Versions.espresso}"
     const val espressoIntents = "androidx.test.espresso:espresso-intents:${Versions.espresso}"
+    const val jUnitExtension = "androidx.test.ext:junit:${Versions.jUnitExtension}"
+    const val uiautomator = "androidx.test.uiautomator:uiautomator:${Versions.uiautomator}"
 
     // robolectric for testing
     const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
