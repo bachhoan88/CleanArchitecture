@@ -1,6 +1,6 @@
 object Versions {
     const val kotlin = "1.3.70"
-    internal const val androidPlugin = "4.0.0"
+    internal const val androidPlugin = "4.2.2"
 
     internal const val androidxCore = "1.1.0"
     internal const val archCore = "2.1.0"
@@ -21,7 +21,7 @@ object Versions {
     internal const val jUnitExtension = "1.1.1"
     internal const val uiautomator = "2.2.0"
     internal const val espresso = "3.2.0"
-    internal const val mockito = "2.7.19"
+    internal const val mockito = "2.22.0"
     internal const val mockitoAll = "1.10.19"
     internal const val hamcrest = "1.3"
     internal const val atslRunner = "1.1.0-alpha1"
@@ -52,6 +52,8 @@ object Versions {
     internal const val googleService = "4.3.0"
     internal const val fabric = "1.31.0"
 
+    internal const val hiltVersion = "2.38.1"
+
     internal const val firebaseCore = "17.2.0"
     internal const val firebaseAnalytics = "17.2.0"
     internal const val crashAnalytics = "2.10.1"
@@ -69,6 +71,7 @@ object BuildPlugins {
     const val navigationSafe = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigationSafe}"
     const val googleService = "com.google.gms:google-services:${Versions.googleService}"
     const val fabric = "io.fabric.tools:gradle:${Versions.fabric}"
+    const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltVersion}"
 }
 
 object Android {
@@ -81,6 +84,7 @@ object Android {
 
 object GradlePlugins {
     const val android = "com.android.application"
+    const val hilt = "dagger.hilt.android.plugin"
     const val kotlin = "kotlin"
     const val kotlinAndroid = "android"
     const val kotlinExt = "android.extensions"
@@ -218,6 +222,10 @@ object Libs {
 
     const val daggerProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+
+    const val hilt = "com.google.dagger:hilt-android:${Versions.hiltVersion}"
+    const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}"
+    // dependency injection
 
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseCore}"
     const val firebaseAnalytics = "com.google.firebase:firebase-analytics:${Versions.firebaseAnalytics}"

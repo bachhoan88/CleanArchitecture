@@ -6,6 +6,7 @@ plugins {
 }
 
 apply {
+    plugin(GradlePlugins.hilt)
     from("../ktlint.gradle")
 }
 
@@ -73,12 +74,8 @@ dependencies {
     implementation(Libs.retrofitAdapter)
 
     // dagger
-    implementation(Libs.daggerCore)
-    implementation(Libs.daggerAndroid)
-    implementation(Libs.daggerSupport)
-
-    kapt(Libs.daggerProcessor)
-    kapt(Libs.daggerCompiler)
+    implementation(Libs.hilt)
+    kapt(Libs.hiltCompiler)
 
     implementation(Libs.okLogging)
     implementation(Libs.timber)

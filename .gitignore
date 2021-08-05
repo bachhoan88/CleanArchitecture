@@ -11,3 +11,5 @@
 /captures
 .externalNativeBuild
 buildSrc/build/
+Gemfile.lock
+presentation/jacoco.exec

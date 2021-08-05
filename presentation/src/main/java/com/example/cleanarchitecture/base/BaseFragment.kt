@@ -12,23 +12,21 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.Size
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.observe
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.example.cleanarchitecture.domain.annotation.Action
 import com.example.cleanarchitecture.domain.annotation.Redirect
 import com.example.cleanarchitecture.extension.setVisible
 import com.example.cleanarchitecture.extension.showDialog
 import com.example.cleanarchitecture.util.autoCleared
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.support.DaggerFragment
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
-import javax.inject.Inject
 
-abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFragment(),
+abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment(),
     EasyPermissions.PermissionCallbacks {
 
     abstract val bindingVariable: Int
@@ -37,9 +35,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
 
     @get:LayoutRes
     abstract val layoutId: Int
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     var viewDataBinding by autoCleared<T>()
 
@@ -142,11 +137,11 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : DaggerFrag
         }
     }
 
-    open fun positiveAction(@Action action: Int?, data: Any? = null) { }
+    open fun positiveAction(@Action action: Int?, data: Any? = null) {}
 
-    open fun negativeAction(@Action action: Int?, data: Any? = null) { }
+    open fun negativeAction(@Action action: Int?, data: Any? = null) {}
 
-    open fun redirectAction(@Redirect redirect: Int?, data: Any? = null) { }
+    open fun redirectAction(@Redirect redirect: Int?, data: Any? = null) {}
 
     open fun onBackPressed() {}
 

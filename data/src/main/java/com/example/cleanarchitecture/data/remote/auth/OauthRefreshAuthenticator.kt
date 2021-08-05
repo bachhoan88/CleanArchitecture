@@ -8,6 +8,7 @@ import com.example.cleanarchitecture.data.model.Token
 import com.example.cleanarchitecture.data.remote.api.OAuthApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,7 +20,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class OauthRefreshAuthenticator @Inject constructor(private val context: Context) : Authenticator {
+class OauthRefreshAuthenticator @Inject constructor(@ApplicationContext private val context: Context) : Authenticator {
 
     private val prefHelper by lazy { AppPrefs(context, Gson()) }
     private val isRefreshing = AtomicBoolean(false)

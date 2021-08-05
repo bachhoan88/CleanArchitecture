@@ -6,6 +6,7 @@ import com.example.cleanarchitecture.data.HttpClient
 import com.example.cleanarchitecture.data.R
 import com.example.cleanarchitecture.data.remote.auth.OauthRefreshAuthenticator
 import com.example.cleanarchitecture.data.remote.factory.RxErrorHandlingCallAdapterFactory
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Authenticator
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -17,7 +18,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RetrofitBuilder @Inject constructor(private val context: Context) {
+class RetrofitBuilder @Inject constructor(@ApplicationContext private val context: Context) {
     private var connectionTimeout = HttpClient.CONNECT_TIMEOUT
     private var writeTimeout = HttpClient.WRITE_TIMEOUT
     private var readTimeout = HttpClient.READ_TIMEOUT
