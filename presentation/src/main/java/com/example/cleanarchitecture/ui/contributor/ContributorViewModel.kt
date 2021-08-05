@@ -11,9 +11,11 @@ import com.example.cleanarchitecture.model.ContributorItem
 import com.example.cleanarchitecture.model.ContributorItemMapper
 import com.example.cleanarchitecture.model.RepoItem
 import com.example.cleanarchitecture.util.RxUtils
+import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
+@HiltViewModel
 class ContributorViewModel @Inject constructor(
     private val getContributorUseCase: GetContributorUseCase,
     private val contributorItemMapper: ContributorItemMapper

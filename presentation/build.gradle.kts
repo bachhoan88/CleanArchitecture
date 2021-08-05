@@ -9,6 +9,7 @@ apply {
     plugin(GradlePlugins.navigationSafeKotlin)
     plugin(GradlePlugins.playService)
     plugin(GradlePlugins.fabric)
+    plugin(GradlePlugins.hilt)
     from("../ktlint.gradle")
     from("../googleServices.gradle")
     from("jacoco.gradle")
@@ -44,11 +45,11 @@ android {
 
     productFlavors {
         create("develop") {
-            matchingFallbacks = listOf("debug", "qa")
+            setMatchingFallbacks(listOf("debug", "qa"))
         }
 
         create("production") {
-            matchingFallbacks = listOf("release")
+            setMatchingFallbacks(listOf("release"))
         }
     }
 
@@ -101,17 +102,9 @@ dependencies {
     implementation(Libs.rxJava)
     implementation(Libs.rxAndroid)
 
-    // Binding
-//    kapt(Libs.glideCompiler)
-//    kapt(Libs.lifecycleJava8)
-//    kapt(Libs.bindingCompiler)
-    kapt(Libs.daggerProcessor)
-    kapt(Libs.daggerCompiler)
-
-    // Dagger 2
-    implementation(Libs.daggerCore)
-    implementation(Libs.daggerAndroid)
-    implementation(Libs.daggerSupport)
+    // Hilt
+    implementation(Libs.hilt)
+    kapt(Libs.hiltCompiler)
 
     implementation(Libs.retrofitGson)
     implementation(Libs.retrofitRuntime)

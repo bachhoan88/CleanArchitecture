@@ -15,6 +15,7 @@ buildscript {
         classpath(BuildPlugins.navigationSafe)
         classpath(BuildPlugins.googleService)
         classpath(BuildPlugins.fabric)
+        classpath(BuildPlugins.hilt)
     }
 }
 

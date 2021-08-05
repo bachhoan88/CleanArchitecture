@@ -11,13 +11,15 @@ import com.example.cleanarchitecture.base.BaseFragment
 import com.example.cleanarchitecture.binding.FragmentDataBindingComponent
 import com.example.cleanarchitecture.databinding.FragmentContributorBinding
 import com.example.cleanarchitecture.util.autoCleared
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ContributorFragment : BaseFragment<FragmentContributorBinding, ContributorViewModel>() {
 
     override val bindingVariable: Int
         get() = BR.viewModel
 
-    override val viewModel: ContributorViewModel by viewModels { viewModelFactory }
+    override val viewModel by viewModels<ContributorViewModel>()
 
     override val layoutId: Int = R.layout.fragment_contributor
 

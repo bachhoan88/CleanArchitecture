@@ -11,7 +11,9 @@ import com.example.cleanarchitecture.base.BaseFragment
 import com.example.cleanarchitecture.binding.FragmentDataBindingComponent
 import com.example.cleanarchitecture.databinding.FragmentMainBinding
 import com.example.cleanarchitecture.util.autoCleared
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override val bindingVariable: Int
@@ -20,7 +22,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override val layoutId: Int
         get() = R.layout.fragment_main
 
-    override val viewModel: MainViewModel by viewModels { viewModelFactory }
+    override val viewModel: MainViewModel by viewModels()
 
     private var mainAdapter by autoCleared<MainAdapter>()
 
