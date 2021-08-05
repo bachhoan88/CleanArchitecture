@@ -40,7 +40,8 @@ Introduction
 
 ### Base Code
 Base code designed one `Activity` and multiple `Fragment`, using `Navigation Component` to UI navigate
-Use Dagger2 (version 2.23.2) for Dependencies Injection, You can easily switch to using `Koin` (I suggestion `Dagger` for big, super projects)
+Use Hilt (2.38) for Dependencies Injection, You can easily switch to using `Koin` (I suggestion `Hilt` for big, super projects and support multiple features
+/modules or dynamic)
 Base code 
 - Has created a flow that handles all of the corner cases, you can easily customize them via `CleanException`, it `extends Throwable`
 - Added `Authorization`, `Interceptor` easily handler and `implementations` for your project if needed
@@ -85,7 +86,7 @@ You can easily write Unit Test up to 70% code coverage lines of code (LOC), if y
   * [Glide][90] for image loading
   * [Kotlin Coroutines][91] for managing background threads with simplified code and reducing needs for callbacks
   * [ReactiveX][92] library for composing asynchronous and event-based programs by using observable sequences.
-  * [Dagger2][93] for dependencies injection 
+  * [Hilt][93] for dependencies injection
   * [Retrofit][94] Type-safe HTTP client for Android
   * [EasyPermission][95]  is a wrapper library to simplify basic system permissions logic when targeting Android M or higher.
 
