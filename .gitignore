@@ -11,3 +11,4 @@
 /captures
 .externalNativeBuild
 buildSrc/build/
+Gemfile.lock
