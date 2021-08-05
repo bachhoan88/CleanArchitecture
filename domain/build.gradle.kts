@@ -7,6 +7,11 @@ apply {
     from("../ktlint.gradle")
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 dependencies {
     // kotlin core
     implementation(Libs.stdLib)
@@ -17,7 +22,7 @@ dependencies {
     implementation(Libs.rxAndroid)
 
     // dagger
-    implementation(Libs.daggerAndroid)
+//    implementation(Libs.daggerAndroid)
     implementation(Libs.daggerSupport)
 
     // test
